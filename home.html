@@ -514,8 +514,8 @@ function output() {
 	for (var i = 0; i < 35; i++) {
 			var BSP = stockArray[i][2];
 			var CSP = stockArray[i][1];
-			var Yield = stockArray[i][3]/BSP;
-			var PA = (CSP - BSP)/BSP;
+			var Yield = stockArray[i][3]/BSP*100;
+			var PA = (CSP - BSP)/BSP*100;
 			var TSV = Yield + PA;
 			stockArray[i][4] = Yield;
 			stockArray[i][5] = PA;

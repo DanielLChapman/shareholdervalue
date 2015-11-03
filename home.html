@@ -516,23 +516,41 @@ function getCurrentStock(urlToUse) {
     });
 }
 function selectionSort(items, selectVariable) {
-      var length = items.length;
-      
-      for (var i = 0; i < length-1; i++) { //Number of passes
-        var min = i; //min holds the current minimum number position for each pass; i holds the Initial min number
-        for (var j = i+1; j < length; j++) { //Note that j = i + 1 as we only need to go through unsorted array
-          if(parseFloat(items[j][selectVariable]) < parseFloat(items[min][selectVariable])) { //Compare the numbers
-            min = j; //Change the current min number position if a smaller num is found
-          }
-        }
-        if(min != i) { //After each pass, if the current min num != initial min num, exchange the position.
-          //Swap the numbers
-          var tmp = items[i];
-          items[i] = items[min];
-          items[min] = tmp;
-        }
+  var length = items.length;
+  
+  for (var i = 0; i < length-1; i++) { //Number of passes
+    var min = i; //min holds the current minimum number position for each pass; i holds the Initial min number
+    for (var j = i+1; j < length; j++) { //Note that j = i + 1 as we only need to go through unsorted array
+      if(parseFloat(items[j][selectVariable]) < parseFloat(items[min][selectVariable])) { //Compare the numbers
+        min = j; //Change the current min number position if a smaller num is found
       }
     }
+    if(min != i) { //After each pass, if the current min num != initial min num, exchange the position.
+      //Swap the numbers
+      var tmp = items[i];
+      items[i] = items[min];
+      items[min] = tmp;
+    }
+  }
+}
+function selectionSortSymbol(items) {
+  var length = items.length;
+  
+  for (var i = 0; i < length-1; i++) { //Number of passes
+    var min = i; //min holds the current minimum number position for each pass; i holds the Initial min number
+    for (var j = i+1; j < length; j++) { //Note that j = i + 1 as we only need to go through unsorted array
+      if(items[j][0] < items[min][0]) { //Compare the numbers
+        min = j; //Change the current min number position if a smaller num is found
+      }
+    }
+    if(min != i) { //After each pass, if the current min num != initial min num, exchange the position.
+      //Swap the numbers
+      var tmp = items[i];
+      items[i] = items[min];
+      items[min] = tmp;
+    }
+  }
+}
 function output() {
 
 	for (var i = 0; i < 35; i++) {
@@ -585,7 +603,7 @@ function f5yrURL() {
 	getCurrentStock(urlCSQ);
 	console.log("5 yr");
 }
-var hCount=cCount=dCount=yCount=pCount=tCount=0;
+var sCount=hCount=cCount=dCount=yCount=pCount=tCount=0;
 function ssort(identi) {
 	if (identi == "H") {
 		hCount++;
@@ -632,6 +650,14 @@ function ssort(identi) {
 		selectionSort(stockArray, 6);
 		clearList();
 		if (tCount%2 == 0) {
+			stockArray.reverse();
+		}
+	} 
+	if (identi == "S") {
+		sCount++;
+		selectionSortSymbol(stockArray);
+		clearList();
+		if (sCount%2 == 0) {
 			stockArray.reverse();
 		}
 	} 

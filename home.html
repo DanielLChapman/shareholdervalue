@@ -14,13 +14,13 @@
 <br />
 <div class="list">
 	<ul>
-		<li>Symbol</li>
-		<li>Historic Price</li>
-		<li>Current Price</li>
-		<li>Dividends</li>
-		<li>Yield</li>
-		<li>Price Appreciation</li>
-		<li>TSV</li>
+		<li onclick="ssort('S');">Symbol</li>
+		<li onclick="ssort('H');">Historic Price</li>
+		<li onclick="ssort('C');">Current Price</li>
+		<li onclick="ssort('D');">Dividends</li>
+		<li onclick="ssort('Y');">Yield</li>
+		<li onclick="ssort('P');">Price Appreciation</li>
+		<li onclick="ssort('T');">TSV</li>
 	</ul>
 	<br />
 	<div class="content">
@@ -522,7 +522,7 @@ function selectionSort(items, selectVariable) {
       for (var i = 0; i < length-1; i++) { //Number of passes
         var min = i; //min holds the current minimum number position for each pass; i holds the Initial min number
         for (var j = i+1; j < length; j++) { //Note that j = i + 1 as we only need to go through unsorted array
-          if(items[j][selectVariable] < items[min][selectVariable]) { //Compare the numbers
+          if(parseFloat(items[j][selectVariable]) < parseFloat(items[min][selectVariable])) { //Compare the numbers
             min = j; //Change the current min number position if a smaller num is found
           }
         }
@@ -552,10 +552,10 @@ function output() {
 			for (var q = 1; q <= 6; q++) {
 				stockArray[i][q] = stockArray[i][q].toFixed(2);
 			}
-			$('.content').append("<br /><ul><li>" + stockArray[i][0] + "</li><li>" + stockArray[i][1] + "</li><li>" + stockArray[i][2] + "</li><li>" + stockArray[i][3] + "</li><li>" + stockArray[i][4] + "</li><li>" + stockArray[i][5] + "</li><li>" + stockArray[i][6] + "</li></ul>");
-			$('#table2excel').append("<tr bgcolor='#87AFC6'><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "</td><td>" + stockArray[i][5] + "</td><td>" + stockArray[i][6] + "</td></tr>");
+			$('.content').append("<br /><ul><li>" + stockArray[i][0] + "</li><li>" + stockArray[i][1] + "</li><li>" + stockArray[i][2] + "</li><li>" + stockArray[i][3] + "</li><li>" + stockArray[i][4] + "%</li><li>" + stockArray[i][5] + "%</li><li>" + stockArray[i][6] + "%</li></ul>");
+			$('#table2excel').append("<tr bgcolor='#87AFC6'><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
 		}	
-}
+	}
 function clearList() {
 	$('.content').empty();
 	$('#currentYear').empty();
@@ -583,6 +583,65 @@ function f5yrURL() {
 	url2UseD = urlD5y;
 	getCurrentStock(urlCSQ);
 	console.log("5 yr");
+}
+var hCount=cCount=dCount=yCount=pCount=tCount=0;
+function ssort(identi) {
+	if (identi == "H") {
+		hCount++;
+		selectionSort(stockArray, 1);
+		clearList();
+		if (hCount%2 == 0) {
+			stockArray.reverse();
+		}
+	} 
+	if (identi == "C") {
+		cCount++;
+		selectionSort(stockArray, 2);
+		clearList();
+		if (cCount%2 == 0) {
+			stockArray.reverse();
+		}
+	} 
+	if (identi == "D") {
+		dCount++;
+		selectionSort(stockArray, 3);
+		clearList();
+		if (dCount%2 == 0) {
+			stockArray.reverse();
+		}
+	} 
+	if (identi == "Y") {
+		yCount++;
+		selectionSort(stockArray, 4);
+		clearList();
+		if (yCount%2 == 0) {
+			stockArray.reverse();
+		}
+	} 
+	if (identi == "P") {
+		pCount++;
+		selectionSort(stockArray, 5);
+		clearList();
+		if (pCount%2 == 0) {
+			stockArray.reverse();
+		}
+	} 
+	if (identi == "T") {
+		tCount++;
+		selectionSort(stockArray, 6);
+		clearList();
+		if (tCount%2 == 0) {
+			stockArray.reverse();
+		}
+	} 
+	for (var i=0; i< 35; i++ ) {
+		for (var q = 1; q <= 6; q++) {
+			stockArray[i][q] = parseFloat(stockArray[i][q]).toFixed(2);
+		}
+		$('.content').append("<br /><ul><li>" + stockArray[i][0] + "</li><li>" + stockArray[i][1] + "</li><li>" + stockArray[i][2] + "</li><li>" + stockArray[i][3] + "</li><li>" + stockArray[i][4] + "%</li><li>" + stockArray[i][5] + "%</li><li>" + stockArray[i][6] + "%</li></ul>");
+		$('#table2excel').append("<tr bgcolor='#87AFC6'><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
+	}	
+
 }
 var tableToExcel = (function () {
         var uri = 'data:application/vnd.ms-excel;base64,'

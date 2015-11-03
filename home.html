@@ -15,40 +15,103 @@
 </head>
 
 <body>
-<button class="button btn btn-primary" id="btnExport" onclick="tableToExcel('table2excel', 'name', 'myfile.xls')"> EXPORT </button>
+<div id="home-anchor"></div>
+<div id="top-nav" class="nav nav-bar">
+	<ul class="nav nav-bar" style="float: left;">
+		<li><a href="#home-anchor">TSV - Home</a></li>
+	</ul>
+	<ul class="nav nav-bar" style="float: right;">
+		<li><a href="#home-anchor">How It Works</a></li>
+		<li onclick="tableToExcel('table2excel', 'name', 'myfile.xls')"><a href="#">Export to Excel</a></li>
+	</ul>
+</div>
+<div class="jumbotron">
+	<h1>Dow 30 Total Shareholder Value Calculator</h1>
+	<br />
+	<h2>Featuring Comcast, Sprint, CenturyLink, At&t and Time Warner Cable</h2>
+</div>
 <p></p>
-<div class="nav nav-bar col-md-12" style="position: relative; ">
-	<ul class="nav nav-tabs col-md-offset-5">
-		<li onclick="f1yrURL()"><a href="#">1 Year</a></li>
-		<li onclick="f3yrURL()" class="active"><a href="#">3 Years</a></li>
-		<li onclick="f5yrURL()"><a href="#">5 Years</a></li>
+<div id="table-nav" class="nav nav-bar col-xs-12" style="position: relative; ">
+	<ul class="nav nav-tab col-xs-offset-4">
+		<li  onclick="f1yrURL()"><a href="#/">1 Year</a></li>
+		<li onclick="f3yrURL()" class=" active"><a href="#/">3 Years</a></li>
+		<li  onclick="f5yrURL()"><a href="#/">5 Years</a></li>
+		<li  onclick="toggleNames()"><a href="#/">Toggle Names</a></li>
 	</ul>
 	<script>
-		$('ul li').click(function() {
+		$('#table-nav ul li').click(function() {
 			$('li').removeClass('active');
 			$(this).addClass('active');
 		});
 	</script>
 </div>
 <br />
-<br />
 <a id="dlink"  style="display:none;"></a>
 <iframe id="txtArea1" style="display:none"></iframe>
-<div class="row col-md-8 col-md-offset-2">
-<table id="table2excel" class="table table-striped" data-tableName="Test Table 1" border='2px'> 
 
-
-</table>
+<div id="table-container" class="container-fluid">
+	<div class="row col-md-8 col-md-offset-2">
+		<table id="table2excel" class="table table-striped" data-tableName="Test Table 1" border='2px'> 
+		</table>
+	</div>
 </div>
-
+<div id="export-button" class="container-fluid">
+	<button class="button col-md-offset-5 col-md-2 btn btn-primary" id="btnExport" onclick="tableToExcel('table2excel', 'name', 'myfile.xls')"> Export to Excel </button>
+</div>
 <style>
+	.jumbotron h2{
+		color: white;
+		top: 30vh;
+		position: relative;
+	}	
+	.jumbotron h1 {
+		top: 20vh;
+		position: relative;
+		text-shadow: 0 0 5px #fff;
+	}
+	.jumbotron {
+		text-align: center;
+	}
+	#top-nav {
+		height: 10vh;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 2;
+	}
+	#top-nav ul {
+		margin-top: 2vh;
+	}
 	.table-striped>tbody>tr:nth-child(odd)>td, 
 	.table-striped>tbody>tr:nth-child(odd)>th {
-   		background-color: #FFC080;
 	 }
 	 .table-striped>tbody>tr:nth-child(even)>td, 
 	.table-striped>tbody>tr:nth-child(even)>th {
-   		background-color: #5695A7;
+	 }
+	.table-striped tbody tr.highlight td { 
+    	background-color: rgba(212,106,106,0.7);
+	 }
+
+	 #export-button {
+	 	height: 10vh;
+	 }
+	 #btnExport {
+	 	top: 4vh;
+	 }
+	 #table-container {
+	 	background-color: #FFFBF6;
+	 	height: 80vh;
+	 	overflow: scroll;
+	 	width: 102%;
+	 }
+	 .jumbotron{
+	 	height: 72vh;
+	 	min-height: 300px;
+	 	background: url(images/jumbotron.png) no-repeat center center;
+	 	background-size: cover;
+	 }
+	 .nav {
+	 	background-color: white;
 	 }
 	 td, th{
 	 	font-weight: 700;
@@ -66,9 +129,7 @@
 		font-weight: 400;
 	}
 	.button {
-		margin: 2em;
 		display: block;
-		float: left;
 		color: white;
 	}
 	.list {
@@ -97,8 +158,10 @@ var url2UseD = "";
 
 var stockArray = new Array(35);
 for (var i = 0; i < 35; i++) {
-  stockArray[i] = [0,0,0,0, 0, 0, 0];
+  stockArray[i] = [0,0,0,0, 0, 0, 0, ""];
 }
+var nameBool = false;
+var sCount=hCount=cCount=dCount=yCount=pCount=tCount=0;
 function getDividends(urlToUse) {
 	for (var i = 0; i < 35; i++) {
   		stockArray[i][3] = 0;
@@ -367,146 +430,182 @@ function getCurrentStock(urlToUse) {
         for(Symbol in data.query.results.quote) {
  			 if(data.query.results.quote.hasOwnProperty(Symbol)) {
  			  	var tempSymbols = data.query.results.quote[Symbol].symbol;
+ 			  	var name = data.query.results.quote[Symbol].Name;
 				var dividends = data.query.results.quote[Symbol].LastTradePriceOnly
 				if (tempSymbols === "WMT") {
 					stockArray[0][0] = tempSymbols;
 					stockArray[0][2]+=parseFloat(dividends);
+					stockArray[0][7] = name;
 				}
 				else if (tempSymbols === "CTL") {
 					stockArray[1][0] = tempSymbols;
 					stockArray[1][2]+=parseFloat(dividends);
+					stockArray[1][7] = name;
 				}
 				else if (tempSymbols === "AXP") {
 					stockArray[2][0] = tempSymbols;
 					stockArray[2][2]+=parseFloat(dividends);
+					stockArray[2][7] = name;
 				}
 				else if (tempSymbols === "CAT") {
 					stockArray[3][0] = tempSymbols;
 					stockArray[3][2]+=parseFloat(dividends);
+					stockArray[3][7] = name;
 				}
 				else if (tempSymbols === "CVX") {
 					stockArray[4][0] = tempSymbols;
 					stockArray[4][2]+=parseFloat(dividends);
+					stockArray[4][7] = name;
 				}
 				else if (tempSymbols === "PG") {
 					stockArray[5][0] = tempSymbols;
 					stockArray[5][2]+=parseFloat(dividends);
+					stockArray[5][7] = name;
 				}
 				else if (tempSymbols === "UTX") {
 					stockArray[6][0] = tempSymbols;
 					stockArray[6][2]+=parseFloat(dividends);
+					stockArray[6][7] = name;
 				}
 				else if (tempSymbols === "DD") {
 					stockArray[7][0] = tempSymbols;
 					stockArray[7][2]+=parseFloat(dividends);
+					stockArray[7][7] = name;
 				}
 				else if (tempSymbols === "IBM") {
 					stockArray[8][0] = tempSymbols;
 					stockArray[8][2]+=parseFloat(dividends);
+					stockArray[8][7] = name;
 				}
 				else if (tempSymbols === "XOM") {
 					stockArray[9][0] = tempSymbols;	
 					stockArray[9][2]+=parseFloat(dividends);
+					stockArray[9][7] = name;
 				}
 				else if (tempSymbols === "INTC") {
 					stockArray[10][0] = tempSymbols;
 					stockArray[10][2]+=parseFloat(dividends);
+					stockArray[10][7] = name;
 				}
 				else if (tempSymbols === "GS") {
 					stockArray[11][0] = tempSymbols;
 					stockArray[11][2]+=parseFloat(dividends);
+					stockArray[11][7] = name;
 				}
 				else if (tempSymbols === "MMM") {
 					stockArray[12][0] = tempSymbols;
 					stockArray[12][2]+=parseFloat(dividends);
+					stockArray[12][7] = name;
 				}
 				else if (tempSymbols === "MRK") {
 					stockArray[13][0] = tempSymbols;
 					stockArray[13][2]+=parseFloat(dividends);
+					stockArray[13][7] = name;
 				}
 				else if (tempSymbols === "JNJ") {
 					stockArray[14][0] = tempSymbols;
 					stockArray[14][2]+=parseFloat(dividends);
+					stockArray[14][7] = name;
 				}
 				else if (tempSymbols === "^GSPC") {
 					stockArray[15][0] = tempSymbols;
 					stockArray[15][2]+=parseFloat(dividends);
+					stockArray[15][7] = name;
 				}
 				else if (tempSymbols === "KO") {
 					stockArray[16][0] = tempSymbols;
 					stockArray[16][2]+=parseFloat(dividends);
+					stockArray[16][7] = name;
 				}
 				else if (tempSymbols === "VZ") {
 					stockArray[17][0] = tempSymbols;
 					stockArray[17][2]+=parseFloat(dividends);
+					stockArray[17][7] = name;
 				}
 				else if (tempSymbols === "T") {
 					stockArray[18][0] = tempSymbols;
 					stockArray[18][2]+=parseFloat(dividends);
+					stockArray[18][7] = name;
 				}
 				else if (tempSymbols === "JPM") {
 					stockArray[19][0] = tempSymbols;
 					stockArray[19][2]+=parseFloat(dividends);
+					stockArray[19][7] = name;
 				}
 				else if (tempSymbols === "CSCO") {
 					stockArray[20][0] = tempSymbols;
 					stockArray[20][2]+=parseFloat(dividends);
+					stockArray[20][7] = name;
 				}
 				else if (tempSymbols === "TRV") {
 					stockArray[21][0] = tempSymbols;
 					stockArray[21][2]+=parseFloat(dividends);
+					stockArray[21][7] = name;
 				}
 				else if (tempSymbols === "CMCSA") {
 					stockArray[22][0] = tempSymbols;
 					stockArray[22][2]+=parseFloat(dividends);
+					stockArray[22][7] = name;
 				}
 				else if (tempSymbols === "PFE") {
 					stockArray[23][0] = tempSymbols;
 					stockArray[23][2]+=parseFloat(dividends);
+					stockArray[23][7] = name;
 				}
 				else if (tempSymbols === "S") {
 					stockArray[24][0] = tempSymbols;
 					stockArray[24][2]+=parseFloat(dividends);
+					stockArray[24][7] = name;
 				}
 				else if (tempSymbols === "MSFT") {
 					stockArray[25][0] = tempSymbols;
 					stockArray[25][2]+=parseFloat(dividends);
+					stockArray[25][7] = name;
 				}
 				else if (tempSymbols === "BA") {
 					stockArray[26][0] = tempSymbols;
 					stockArray[26][2]+=parseFloat(dividends);
+					stockArray[26][7] = name;
 				}
 				else if (tempSymbols === "GE") {
 					stockArray[27][0] = tempSymbols;
 					stockArray[27][2]+=parseFloat(dividends);
+					stockArray[27][7] = name;
 				}
 				else if (tempSymbols === "UNH") {
 					stockArray[28][0] = tempSymbols;
 					stockArray[28][2]+=parseFloat(dividends);
+					stockArray[28][7] = name;
 				}
 				else if (tempSymbols === "V") {
 					stockArray[29][0] = tempSymbols;
 					stockArray[29][2]+=parseFloat(dividends);
+					stockArray[29][7] = name;
 				}
 				else if (tempSymbols === "HD") {
 					stockArray[30][0] = tempSymbols;
 					stockArray[30][2]+=parseFloat(dividends);
+					stockArray[30][7] = name;
 				}
 				else if (tempSymbols === "DIS") {
 					stockArray[31][0] = tempSymbols;
 					stockArray[31][2]+=parseFloat(dividends);
+					stockArray[31][7] = name;
 				}
 				else if (tempSymbols === "MCD") {
 					stockArray[32][0] = tempSymbols;
 					stockArray[32][2]+=parseFloat(dividends);
+					stockArray[32][7] = name;
 				}
 				else if (tempSymbols === "TWC") {
 					stockArray[33][0] = tempSymbols;
 					stockArray[33][2]+=parseFloat(dividends);
+					stockArray[33][7] = name;
 				}
 				else if (tempSymbols === "NKE") {
 					stockArray[34][0] = tempSymbols;
 					stockArray[34][2]+=parseFloat(dividends);
+					stockArray[34][7] = name;
 				}
  			 }
 		}
@@ -565,17 +664,10 @@ function output() {
 		stockArray[i][5] = PA;
 		stockArray[i][6] = TSV;
 	}
-		selectionSort(stockArray, 6);
-		stockArray.reverse();
-		var count = 0;
-	for (var i=0; i< 35; i++ ) {
-		count++;
-			for (var q = 1; q <= 6; q++) {
-				stockArray[i][q] = stockArray[i][q].toFixed(2);
-			}
-			$('#table2excel').append("<tr><td>"+count+"</td><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
-	}	
-	$('#table2excel').append("</tbody>");
+	selectionSort(stockArray, 6);
+	stockArray.reverse();
+	updateFunction();
+	
 }
 function clearList() {
 	$('#table2excel').empty();
@@ -608,7 +700,26 @@ function f5yrURL() {
 	getCurrentStock(urlCSQ);
 	console.log("5 yr");
 }
-var sCount=hCount=cCount=dCount=yCount=pCount=tCount=0;
+function updateFunction() {
+	clearList();
+	for (var i=0; i< 35; i++ ) {
+		for (var q = 1; q <= 6; q++) {
+			stockArray[i][q] = parseFloat(stockArray[i][q]).toFixed(2);
+		}
+		var temp = stockArray[i][0];
+		if (nameBool) {
+			temp = stockArray[i][7];
+			console.log('here');
+		}
+		$('#table2excel').append("<tr><td>"+(i+1)+"</td><td>" + temp + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
+	}	
+	$('#table2excel').append("</tbody>");
+}
+function toggleNames() {
+	nameBool = !nameBool;
+	console.log(nameBool);
+	updateFunction();
+}
 function ssort(identi) {
 	if (identi == "H") {
 		hCount++;
@@ -666,13 +777,7 @@ function ssort(identi) {
 			stockArray.reverse();
 		}
 	} 
-	for (var i=0; i< 35; i++ ) {
-		for (var q = 1; q <= 6; q++) {
-			stockArray[i][q] = parseFloat(stockArray[i][q]).toFixed(2);
-		}
-		$('#table2excel').append("<tr><td>"+count+"</td><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
-	}	
-	$('#table2excel').append("</tbody>");
+	updateFunction();
 }
 var tableToExcel = (function () {
         var uri = 'data:application/vnd.ms-excel;base64,'
@@ -689,8 +794,22 @@ var tableToExcel = (function () {
 
         }
     })();
+$(window).scroll(function (event) {
+    var scroll = $(window).scrollTop();
+    if (scroll == 0) {
+    	$('#top-nav').css("height", "10vh");
+    	$('#top-nav ul').css("margin-top", "2vh");
+    }
+    else {
+    	$('#top-nav').css("height", "5vh");
+    	$('#top-nav ul').css("margin-top", "0vh");
+    }
+});
 $(document).ready(function() {
 	f3yrURL();
+	$('#table2excel').on('click', 'tbody tr', function(event) {
+   	 $(this).addClass('highlight').siblings().removeClass('highlight');
+	});
 });
 
 

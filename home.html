@@ -18,8 +18,21 @@
 <div class="button btn btn-primary" onclick="f1yrURL()" id="1yr">click for 1yr</div>
 <div class="button btn btn-primary" onclick="f3yrURL()" id="3yr">click for 3yr</div>
 <div class="button btn btn-primary" onclick="f5yrURL()" id="5yr">click for 5yr</div>
-<div id="currentYear"><p>Current Year: 3yr</p></div>
 <button class="button btn btn-primary" id="btnExport" onclick="tableToExcel('table2excel', 'name', 'myfile.xls')"> EXPORT </button>
+<p></p>
+<div class="nav nav-bar col-md-12" style="position: relative; ">
+	<ul class="nav nav-tabs">
+		<li onclick="f1yrURL()"><a href="#">1 Year</a></li>
+		<li onclick="f3yrURL()" class="active"><a href="#">3 Years</a></li>
+		<li onclick="f5yrURL()"><a href="#">5 Years</a></li>
+	</ul>
+	<script>
+		$('ul li').click(function() {
+			$('li').removeClass('active');
+			$(this).addClass('active');
+		});
+	</script>
+</div>
 <br />
 <br />
 <a id="dlink"  style="display:none;"></a>
@@ -44,10 +57,9 @@
 	    padding: 0;
 	}
 	li {
-		display: block;
 		float: left;
 		margin-right: 3em;
-		width: 65px;
+		display: block;
 	}
 	.button {
 		margin: 2em;

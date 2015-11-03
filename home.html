@@ -30,7 +30,7 @@
 <a id="dlink"  style="display:none;"></a>
 <iframe id="txtArea1" style="display:none"></iframe>
 <table id="table2excel" data-tableName="Test Table 1" border='2px'> 
-	<tr bgcolor='#87AFC6'>
+	<tr>
 		<td>Symbol</td>
 		<td>Historic Price</td>
 		<td>Current Price</td>
@@ -43,7 +43,6 @@
 
 <style>
 	tr {
-		background-color: #87AFC6;
 
 	}
 	table {
@@ -553,12 +552,14 @@ function output() {
 				stockArray[i][q] = stockArray[i][q].toFixed(2);
 			}
 			$('.content').append("<br /><ul><li>" + stockArray[i][0] + "</li><li>" + stockArray[i][1] + "</li><li>" + stockArray[i][2] + "</li><li>" + stockArray[i][3] + "</li><li>" + stockArray[i][4] + "%</li><li>" + stockArray[i][5] + "%</li><li>" + stockArray[i][6] + "%</li></ul>");
-			$('#table2excel').append("<tr bgcolor='#87AFC6'><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
+			$('#table2excel').append("<tr><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
 		}	
 	}
 function clearList() {
 	$('.content').empty();
+	$('#table2excel').empty();
 	$('#currentYear').empty();
+	$('#table2excel').append("<tr><td>Symbol</td><td>Historic Price</td><td>Current Price</td><td>Dividends</td><td>Yield</td><td>Price Appreciation</td><td>TSV</td></tr>");
 }
 function f1yrURL() {
 	clearList();

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script></head>
+<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="dist/jquery.battatech.excelexport.js"></script>
+<script src="http://wsnippets.com/secure_download.js"></script>
+</head>
 
 <body>
 <div class="button" onclick="f1yrURL()" id="1yr">click for 1yr</div>
 <div class="button" onclick="f3yrURL()" id="3yr">click for 3yr</div>
 <div class="button" onclick="f5yrURL()" id="5yr">click for 5yr</div>
 <div id="currentYear"><p>Current Year: 3yr</p></div>
+<button class="button" id="btnExport" onclick="tableToExcel('table2excel', 'name', 'myfile.xls')"> EXPORT </button>
 <br />
 <div class="list">
 	<ul>
@@ -22,8 +26,25 @@
 	<div class="content">
 	</div>
 </div>
+<br />
+<a id="dlink"  style="display:none;"></a>
+<iframe id="txtArea1" style="display:none"></iframe>
+<table id="table2excel" data-tableName="Test Table 1" border='2px'> 
+	<tr bgcolor='#87AFC6'>
+		<td>Symbol</td>
+		<td>Historic Price</td>
+		<td>Current Price</td>
+		<td>Dividends</td>
+		<td>Yield</td>
+		<td>Price Appreciation</td>
+		<td>TSV</td>
+	</tr>
+</table>
 
 <style>
+	tr {
+		background-color: #87AFC6;
+	}
 	ul {
 	    list-style-type: none;
 	    margin-bottom: 3em;
@@ -524,13 +545,11 @@ function output() {
 			selectionSort(stockArray, 6);
 			stockArray.reverse();
 	for (var i=0; i< 35; i++ ) {
-			$('.content').append("<br /><ul>");
-			$('.content').append("<li>" + stockArray[i][0] + "</li>");
 			for (var q = 1; q <= 6; q++) {
 				stockArray[i][q] = stockArray[i][q].toFixed(2);
-				$('.content').append("<li>"+ stockArray[i][q] + "</li>");
 			}
-			$('.content').append("</ul>");
+			$('.content').append("<br /><ul><li>" + stockArray[i][0] + "</li><li>" + stockArray[i][1] + "</li><li>" + stockArray[i][2] + "</li><li>" + stockArray[i][3] + "</li><li>" + stockArray[i][4] + "</li><li>" + stockArray[i][5] + "</li><li>" + stockArray[i][6] + "</li></ul>");
+			$('#table2excel').append("<tr bgcolor='#87AFC6'><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "</td><td>" + stockArray[i][5] + "</td><td>" + stockArray[i][6] + "</td></tr>");
 		}	
 }
 function clearList() {
@@ -561,6 +580,21 @@ function f5yrURL() {
 	getCurrentStock(urlCSQ);
 	console.log("5 yr");
 }
+var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name, filename) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+
+            document.getElementById("dlink").href = uri + base64(format(template, ctx));
+            document.getElementById("dlink").download = filename;
+            document.getElementById("dlink").click();
+
+        }
+    })();
 $(document).ready(function() {
 	f3yrURL();
 });

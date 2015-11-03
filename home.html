@@ -15,13 +15,10 @@
 </head>
 
 <body>
-<div class="button btn btn-primary" onclick="f1yrURL()" id="1yr">click for 1yr</div>
-<div class="button btn btn-primary" onclick="f3yrURL()" id="3yr">click for 3yr</div>
-<div class="button btn btn-primary" onclick="f5yrURL()" id="5yr">click for 5yr</div>
 <button class="button btn btn-primary" id="btnExport" onclick="tableToExcel('table2excel', 'name', 'myfile.xls')"> EXPORT </button>
 <p></p>
 <div class="nav nav-bar col-md-12" style="position: relative; ">
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-tabs col-md-offset-5">
 		<li onclick="f1yrURL()"><a href="#">1 Year</a></li>
 		<li onclick="f3yrURL()" class="active"><a href="#">3 Years</a></li>
 		<li onclick="f5yrURL()"><a href="#">5 Years</a></li>
@@ -37,10 +34,12 @@
 <br />
 <a id="dlink"  style="display:none;"></a>
 <iframe id="txtArea1" style="display:none"></iframe>
+<div class="row col-md-8 col-md-offset-2">
 <table id="table2excel" class="table table-striped" data-tableName="Test Table 1" border='2px'> 
 
 
 </table>
+</div>
 
 <style>
 	.table-striped>tbody>tr:nth-child(odd)>td, 
@@ -51,6 +50,10 @@
 	.table-striped>tbody>tr:nth-child(even)>th {
    		background-color: #5695A7;
 	 }
+	 td, th{
+	 	font-weight: 700;
+	 	border: 1px solid black;
+	 }
 	ul {
 	    list-style-type: none;
 	    margin-bottom: 0em;
@@ -60,6 +63,7 @@
 		float: left;
 		margin-right: 3em;
 		display: block;
+		font-weight: 400;
 	}
 	.button {
 		margin: 2em;

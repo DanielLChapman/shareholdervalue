@@ -532,28 +532,30 @@ function selectionSortSymbol(items) {
 function output() {
 
 	for (var i = 0; i < 35; i++) {
-			var BSP = stockArray[i][1];
-			var CSP = stockArray[i][2];
-			var Yield = stockArray[i][3]/BSP*100;
-			var PA = (CSP - BSP)/BSP*100;
-			var TSV = Yield + PA;
-			stockArray[i][4] = Yield;
-			stockArray[i][5] = PA;
-			stockArray[i][6] = TSV;
+		var BSP = stockArray[i][1];
+		var CSP = stockArray[i][2];
+		var Yield = stockArray[i][3]/BSP*100;
+		var PA = (CSP - BSP)/BSP*100;
+		var TSV = Yield + PA;
+		stockArray[i][4] = Yield;
+		stockArray[i][5] = PA;
+		stockArray[i][6] = TSV;
 	}
-			selectionSort(stockArray, 6);
-			stockArray.reverse();
+		selectionSort(stockArray, 6);
+		stockArray.reverse();
+		var count = 0;
 	for (var i=0; i< 35; i++ ) {
+		count++;
 			for (var q = 1; q <= 6; q++) {
 				stockArray[i][q] = stockArray[i][q].toFixed(2);
 			}
-			$('#table2excel').append("<tr><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
+			$('#table2excel').append("<tr><td>"+count+"</td><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
 	}	
 	$('#table2excel').append("</tbody>");
 }
 function clearList() {
 	$('#table2excel').empty();
-	$('#table2excel').append('<thead><tr><th onclick="ssort(\'S\')">Symbol</th><th onclick="ssort(\'H\')">Historic Price</th><th onclick="ssort(\'C\')">Current Price</th><th onclick="ssort(\'D\')">Dividends</th><th onclick="ssort(\'Y\')">Yield</th><th onclick="ssort(\'P\')">Price Appreciation</th><th onclick="ssort(\'T\')">TSV</th></tr></thead><tbody>');
+	$('#table2excel').append('<thead><tr><th>Position</th><th onclick="ssort(\'S\')">Symbol</th><th onclick="ssort(\'H\')">Historic Price</th><th onclick="ssort(\'C\')">Current Price</th><th onclick="ssort(\'D\')">Dividends</th><th onclick="ssort(\'Y\')">Yield</th><th onclick="ssort(\'P\')">Price Appreciation</th><th onclick="ssort(\'T\')">TSV</th></tr></thead><tbody>');
 }
 function f1yrURL() {
 	$('#currentYear').empty();
@@ -644,7 +646,7 @@ function ssort(identi) {
 		for (var q = 1; q <= 6; q++) {
 			stockArray[i][q] = parseFloat(stockArray[i][q]).toFixed(2);
 		}
-		$('#table2excel').append("<tr><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
+		$('#table2excel').append("<tr><td>"+count+"</td><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
 	}	
 	$('#table2excel').append("</tbody>");
 }

@@ -3,7 +3,10 @@
 <head><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script></head>
 
 <body>
-
+<div class="button" onclick="f1yrURL()" id="1yr">click for 1yr</div>
+<div class="button" onclick="f3yrURL()" id="3yr">click for 3yr</div>
+<div class="button" onclick="f5yrURL()" id="5yr">click for 5yr</div>
+<br />
 <div class="list">
 	<ul>
 		<li>Symbol</li>
@@ -15,20 +18,35 @@
 		<li>TSV</li>
 	</ul>
 	<br />
+	<div class="content">
+	</div>
 </div>
 
 <style>
 	ul {
-    list-style-type: none;
-    margin-bottom: 3em;
-    display: inline;
-    padding: 0;
+	    list-style-type: none;
+	    margin-bottom: 3em;
+	    padding: 0;
 	}
 	li {
 		display: block;
 		float: left;
 		margin-right: 3em;
 		width: 65px;
+	}
+	.button {
+		width: 100px;
+		margin: 2em;
+		display: block;
+		float: left;
+		background: blue;
+		border-radius: 15;
+		color: white;
+	}
+	.list {
+		float: left;
+		display: block;
+		top: 50px;
 	}
 </style>
 
@@ -46,6 +64,9 @@ var urlHSQ1y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20
 var urlHSQ3y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%222012-12-31%22%20and%20endDate%20%3D%20%222012-12-31%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback="
 
 var urlHSQ5y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%222010-12-31%22%20and%20endDate%20%3D%20%222010-12-31%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback="
+
+var url2UseH = "";
+var url2UseD = "";
 
 var stockArray = new Array(35);
 for (var i = 0; i < 35; i++) {
@@ -299,7 +320,7 @@ function getHistoryPrice(urlToUse) {
 				}
  			 }
 		}
-		getDividends(urlD3y);
+		getDividends(url2UseD);
     })
         .fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ", " + error;
@@ -462,7 +483,7 @@ function getCurrentStock(urlToUse) {
 				}
  			 }
 		}
-		getHistoryPrice(urlHSQ3y);
+		getHistoryPrice(url2UseH);
     })
         .fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ", " + error;
@@ -502,17 +523,42 @@ function output() {
 			selectionSort(stockArray);
 			stockArray.reverse();
 	for (var i=0; i< 35; i++ ) {
-			$('.list').append("<br /><ul>");
-			$('.list').append("<li>" + stockArray[i][0] + "</li>");
+			$('.content').append("<br /><ul>");
+			$('.content').append("<li>" + stockArray[i][0] + "</li>");
 			for (var q = 1; q <= 6; q++) {
 				stockArray[i][q] = stockArray[i][q].toFixed(2);
-				$('.list').append("<li>"+ stockArray[i][q] + "</li>");
+				$('.content').append("<li>"+ stockArray[i][q] + "</li>");
 			}
-			$('.list').append("</ul>");
+			$('.content').append("</ul>");
 		}	
 }
-$(document).ready(function() {
+function clearList() {
+	$('.content').empty();
+}
+function f1yrURL() {
+	clearList()
+	url2UseH = urlHSQ1y;
+	url2UseD = urlD1y;
 	getCurrentStock(urlCSQ);
+	console.log("1yr");
+}
+function f3yrURL() {
+	clearList()
+	url2UseH = urlHSQ3y;
+	url2UseD = urlD3y;
+	getCurrentStock(urlCSQ);
+	console.log("3yr");
+}
+function f5yrURL() {
+	clearList()
+	url2UseH = urlHSQ5y;
+	url2UseD = urlD5y;
+	getCurrentStock(urlCSQ);
+	console.log("5yr");
+}
+$(document).ready(function() {
+	f3yrURL();
+	
 
 });
 

@@ -3,51 +3,33 @@
 <head><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="dist/jquery.battatech.excelexport.js"></script>
 <script src="http://wsnippets.com/secure_download.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-<div class="button" onclick="f1yrURL()" id="1yr">click for 1yr</div>
-<div class="button" onclick="f3yrURL()" id="3yr">click for 3yr</div>
-<div class="button" onclick="f5yrURL()" id="5yr">click for 5yr</div>
+<div class="button btn btn-primary" onclick="f1yrURL()" id="1yr">click for 1yr</div>
+<div class="button btn btn-primary" onclick="f3yrURL()" id="3yr">click for 3yr</div>
+<div class="button btn btn-primary" onclick="f5yrURL()" id="5yr">click for 5yr</div>
 <div id="currentYear"><p>Current Year: 3yr</p></div>
-<button class="button" id="btnExport" onclick="tableToExcel('table2excel', 'name', 'myfile.xls')"> EXPORT </button>
+<button class="button btn btn-primary" id="btnExport" onclick="tableToExcel('table2excel', 'name', 'myfile.xls')"> EXPORT </button>
 <br />
-<div class="list">
-	<ul>
-		<li onclick="ssort('S');">Symbol</li>
-		<li onclick="ssort('H');">Historic Price</li>
-		<li onclick="ssort('C');">Current Price</li>
-		<li onclick="ssort('D');">Dividends</li>
-		<li onclick="ssort('Y');">Yield</li>
-		<li onclick="ssort('P');">Price Appreciation</li>
-		<li onclick="ssort('T');">TSV</li>
-	</ul>
-	<br />
-	<div class="content">
-	</div>
-</div>
 <br />
 <a id="dlink"  style="display:none;"></a>
 <iframe id="txtArea1" style="display:none"></iframe>
-<table id="table2excel" data-tableName="Test Table 1" border='2px'> 
-	<tr>
-		<td>Symbol</td>
-		<td>Historic Price</td>
-		<td>Current Price</td>
-		<td>Dividends</td>
-		<td>Yield</td>
-		<td>Price Appreciation</td>
-		<td>TSV</td>
-	</tr>
+<table id="table2excel" class="table table-striped" data-tableName="Test Table 1" border='2px'> 
+
+
 </table>
 
 <style>
-	tr {
-
-	}
-	table {
-		display: none;
-	}
 	ul {
 	    list-style-type: none;
 	    margin-bottom: 0em;
@@ -60,18 +42,14 @@
 		width: 65px;
 	}
 	.button {
-		width: 100px;
 		margin: 2em;
 		display: block;
 		float: left;
-		background: blue;
-		border-radius: 15;
 		color: white;
 	}
 	.list {
-		float: left;
-		display: block;
 		top: 50px;
+		display: none;
 	}
 </style>
 
@@ -569,17 +547,16 @@ function output() {
 			for (var q = 1; q <= 6; q++) {
 				stockArray[i][q] = stockArray[i][q].toFixed(2);
 			}
-			$('.content').append("<br /><ul><li>" + stockArray[i][0] + "</li><li>" + stockArray[i][1] + "</li><li>" + stockArray[i][2] + "</li><li>" + stockArray[i][3] + "</li><li>" + stockArray[i][4] + "%</li><li>" + stockArray[i][5] + "%</li><li>" + stockArray[i][6] + "%</li></ul>");
 			$('#table2excel').append("<tr><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
-		}	
-	}
+	}	
+	$('#table2excel').append("</tbody>");
+}
 function clearList() {
-	$('.content').empty();
 	$('#table2excel').empty();
-	$('#currentYear').empty();
-	$('#table2excel').append("<tr><td>Symbol</td><td>Historic Price</td><td>Current Price</td><td>Dividends</td><td>Yield</td><td>Price Appreciation</td><td>TSV</td></tr>");
+	$('#table2excel').append('<thead><tr><th onclick="ssort(\'S\')">Symbol</th><th onclick="ssort(\'H\')">Historic Price</th><th onclick="ssort(\'C\')">Current Price</th><th onclick="ssort(\'D\')">Dividends</th><th onclick="ssort(\'Y\')">Yield</th><th onclick="ssort(\'P\')">Price Appreciation</th><th onclick="ssort(\'T\')">TSV</th></tr></thead><tbody>');
 }
 function f1yrURL() {
+	$('#currentYear').empty();
 	clearList();
 	$('#currentYear').append("<p>Current Year: 1yr</p>");
 	url2UseH = urlHSQ1y;
@@ -588,6 +565,7 @@ function f1yrURL() {
 	console.log("1 yr");
 }
 function f3yrURL() {
+	$('#currentYear').empty();
 	clearList();
 	$('#currentYear').append("<p>Current Year: 3yr</p>");
 	url2UseH = urlHSQ3y;
@@ -596,6 +574,7 @@ function f3yrURL() {
 	console.log("3 yr");
 }
 function f5yrURL() {
+	$('#currentYear').empty();
 	clearList();
 	$('#currentYear').append("<p>Current Year: 5yr</p>");
 	url2UseH = urlHSQ5y;
@@ -665,10 +644,9 @@ function ssort(identi) {
 		for (var q = 1; q <= 6; q++) {
 			stockArray[i][q] = parseFloat(stockArray[i][q]).toFixed(2);
 		}
-		$('.content').append("<br /><ul><li>" + stockArray[i][0] + "</li><li>" + stockArray[i][1] + "</li><li>" + stockArray[i][2] + "</li><li>" + stockArray[i][3] + "</li><li>" + stockArray[i][4] + "%</li><li>" + stockArray[i][5] + "%</li><li>" + stockArray[i][6] + "%</li></ul>");
-		$('#table2excel').append("<tr bgcolor='#87AFC6'><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
+		$('#table2excel').append("<tr><td>" + stockArray[i][0] + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
 	}	
-
+	$('#table2excel').append("</tbody>");
 }
 var tableToExcel = (function () {
         var uri = 'data:application/vnd.ms-excel;base64,'

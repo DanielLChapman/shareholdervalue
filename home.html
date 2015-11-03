@@ -3,14 +3,11 @@
 <head><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script></head>
 
 <body>
-<<<<<<< HEAD
-
-=======
 <div class="button" onclick="f1yrURL()" id="1yr">click for 1yr</div>
 <div class="button" onclick="f3yrURL()" id="3yr">click for 3yr</div>
 <div class="button" onclick="f5yrURL()" id="5yr">click for 5yr</div>
+<div id="currentYear"><p>Current Year: 3yr</p></div>
 <br />
->>>>>>> gh-pages
 <div class="list">
 	<ul>
 		<li>Symbol</li>
@@ -22,25 +19,15 @@
 		<li>TSV</li>
 	</ul>
 	<br />
-<<<<<<< HEAD
-=======
 	<div class="content">
 	</div>
->>>>>>> gh-pages
 </div>
 
 <style>
 	ul {
-<<<<<<< HEAD
-    list-style-type: none;
-    margin-bottom: 3em;
-    display: inline;
-    padding: 0;
-=======
 	    list-style-type: none;
 	    margin-bottom: 3em;
 	    padding: 0;
->>>>>>> gh-pages
 	}
 	li {
 		display: block;
@@ -48,8 +35,6 @@
 		margin-right: 3em;
 		width: 65px;
 	}
-<<<<<<< HEAD
-=======
 	.button {
 		width: 100px;
 		margin: 2em;
@@ -64,7 +49,6 @@
 		display: block;
 		top: 50px;
 	}
->>>>>>> gh-pages
 </style>
 
 <script>
@@ -82,12 +66,9 @@ var urlHSQ3y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20
 
 var urlHSQ5y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%222010-12-31%22%20and%20endDate%20%3D%20%222010-12-31%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback="
 
-<<<<<<< HEAD
-=======
 var url2UseH = "";
 var url2UseD = "";
 
->>>>>>> gh-pages
 var stockArray = new Array(35);
 for (var i = 0; i < 35; i++) {
   stockArray[i] = [0,0,0,0, 0, 0, 0];
@@ -340,11 +321,7 @@ function getHistoryPrice(urlToUse) {
 				}
  			 }
 		}
-<<<<<<< HEAD
-		getDividends(urlD3y);
-=======
 		getDividends(url2UseD);
->>>>>>> gh-pages
     })
         .fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ", " + error;
@@ -507,11 +484,7 @@ function getCurrentStock(urlToUse) {
 				}
  			 }
 		}
-<<<<<<< HEAD
-		getHistoryPrice(urlHSQ3y);
-=======
 		getHistoryPrice(url2UseH);
->>>>>>> gh-pages
     })
         .fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ", " + error;
@@ -551,19 +524,6 @@ function output() {
 			selectionSort(stockArray);
 			stockArray.reverse();
 	for (var i=0; i< 35; i++ ) {
-<<<<<<< HEAD
-			$('.list').append("<br /><ul>");
-			$('.list').append("<li>" + stockArray[i][0] + "</li>");
-			for (var q = 1; q <= 6; q++) {
-				stockArray[i][q] = stockArray[i][q].toFixed(2);
-				$('.list').append("<li>"+ stockArray[i][q] + "</li>");
-			}
-			$('.list').append("</ul>");
-		}	
-}
-$(document).ready(function() {
-	getCurrentStock(urlCSQ);
-=======
 			$('.content').append("<br /><ul>");
 			$('.content').append("<li>" + stockArray[i][0] + "</li>");
 			for (var q = 1; q <= 6; q++) {
@@ -575,23 +535,27 @@ $(document).ready(function() {
 }
 function clearList() {
 	$('.content').empty();
+	$('#currentYear').empty();
 }
 function f1yrURL() {
-	clearList()
+	clearList();
+	$('#currentYear').append("<p>Current Year: 1yr</p>");
 	url2UseH = urlHSQ1y;
 	url2UseD = urlD1y;
 	getCurrentStock(urlCSQ);
 	console.log("1yr");
 }
 function f3yrURL() {
-	clearList()
+	clearList();
+	$('#currentYear').append("<p>Current Year: 3yr</p>");
 	url2UseH = urlHSQ3y;
 	url2UseD = urlD3y;
 	getCurrentStock(urlCSQ);
 	console.log("3yr");
 }
 function f5yrURL() {
-	clearList()
+	clearList();
+	$('#currentYear').append("<p>Current Year: 5yr</p>");
 	url2UseH = urlHSQ5y;
 	url2UseD = urlD5y;
 	getCurrentStock(urlCSQ);
@@ -600,7 +564,6 @@ function f5yrURL() {
 $(document).ready(function() {
 	f3yrURL();
 	
->>>>>>> gh-pages
 
 });
 

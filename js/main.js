@@ -576,7 +576,6 @@ function updateFunction() {
 }
 function toggleNames() {
 	nameBool = !nameBool;
-	console.log(nameBool);
 	updateFunction();
 }
 function ssort(identi) {

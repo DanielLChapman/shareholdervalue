@@ -38,10 +38,10 @@
 		<li  onclick="f1yrURL()"><a href="#/">1 Year</a></li>
 		<li onclick="f3yrURL()" class=" active"><a href="#/">3 Years</a></li>
 		<li  onclick="f5yrURL()"><a href="#/">5 Years</a></li>
-		<li  onclick="toggleNames()"><a href="#/">Toggle Names</a></li>
+		<li  id="toggle-li" onclick="toggleNames()"><a href="#/">Toggle Names</a></li>
 	</ul>
 	<script>
-		$('#table-nav ul li').click(function() {
+		$('#table-nav ul li:nth-child(-n+3)').click(function() {
 			$('li').removeClass('active');
 			$(this).addClass('active');
 		});

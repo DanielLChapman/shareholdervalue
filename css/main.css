@@ -1,6 +1,13 @@
+	@import url(https://fonts.googleapis.com/css?family=Didact+Gothic|Oswald); 
+	.nav, .jumbotron {
+		font-family: 'Didact Gothic', sans-serif;
+	}
+	#table2excel {
+		font-family: 'Oswald', sans-serif;
+	}
 	.jumbotron h2{
 		color: white;
-		top: 30vh;
+		top: 2em;
 		position: relative;
 	}	
 	#table-nav-ul {
@@ -9,10 +16,7 @@
 		position: relative;
 		width: 550px;
 	}
-	#table-nav-ul li {
-	}
 	.jumbotron h1 {
-		top: 20vh;
 		position: relative;
 		text-shadow: 0 0 5px #fff;
 	}
@@ -20,7 +24,7 @@
 		text-align: center;
 	}
 	#top-nav {
-		height: 10vh;
+		height: 3.5em;
 		position: fixed;
 		top: 0;
 		width: 100%;
@@ -28,11 +32,14 @@
 		z-index: 2;
 	}
 	#top-nav ul {
-		margin-top: 2vh;
 		background-color: black;
 	}
 	#top-nav ul li a {
 		color: gray;
+	}
+	.active {
+		border: 1px solid gray;
+		border-bottom: 0px solid gray;
 	}
 	.table-striped>tbody>tr:nth-child(odd)>td, 
 	.table-striped>tbody>tr:nth-child(odd)>th {
@@ -58,8 +65,8 @@
 	 }
 	 .jumbotron{
 	 	height: 72vh;
-	 	min-height: 300px;
-	 	background: url(images/jumbotron.png) no-repeat center center;
+	 	min-height: 400px;
+	 	background: url(http://daniellchapman.github.io/shareholdervalue/images/jumbotron.png) no-repeat center center;
 	 	background-size: cover;
 	 }
 	 .nav {

@@ -1,0 +1,90 @@
+	.jumbotron h2{
+		color: white;
+		top: 30vh;
+		position: relative;
+	}	
+	#table-nav-ul {
+		margin-left: auto;
+		margin-right: auto;
+		position: relative;
+		width: 550px;
+	}
+	#table-nav-ul li {
+	}
+	.jumbotron h1 {
+		top: 20vh;
+		position: relative;
+		text-shadow: 0 0 5px #fff;
+	}
+	.jumbotron {
+		text-align: center;
+	}
+	#top-nav {
+		height: 10vh;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		background-color: black;
+		z-index: 2;
+	}
+	#top-nav ul {
+		margin-top: 2vh;
+		background-color: black;
+	}
+	#top-nav ul li a {
+		color: gray;
+	}
+	.table-striped>tbody>tr:nth-child(odd)>td, 
+	.table-striped>tbody>tr:nth-child(odd)>th {
+	 }
+	 .table-striped>tbody>tr:nth-child(even)>td, 
+	.table-striped>tbody>tr:nth-child(even)>th {
+	 }
+	.table-striped tbody tr.highlight td { 
+    	background-color: rgba(212,106,106,0.7);
+	 }
+
+	 #export-button {
+	 	height: 10vh;
+	 }
+	 #btnExport {
+	 	top: 4vh;
+	 }
+	 #table-container {
+	 	background-color: #FFFBF6;
+	 	height: 80vh;
+	 	overflow: scroll;
+	 	width: 102%;
+	 }
+	 .jumbotron{
+	 	height: 72vh;
+	 	min-height: 300px;
+	 	background: url(images/jumbotron.png) no-repeat center center;
+	 	background-size: cover;
+	 }
+	 .nav {
+	 	background-color: white;
+	 }
+	 td, th{
+	 	font-weight: 700;
+	 	border: 1px solid black;
+	 }
+	ul {
+	    list-style-type: none;
+	    margin-bottom: 0em;
+	    padding: 0;
+	}
+	li {
+		float: left;
+		margin-right: 3em;
+		display: block;
+		font-weight: 400;
+	}
+	.button {
+		display: block;
+		color: white;
+	}
+	.list {
+		top: 50px;
+		display: none;
+	}

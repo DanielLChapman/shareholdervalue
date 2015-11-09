@@ -207,7 +207,7 @@ function getHistoryPrice(urlToUse) {
 				else if (tempSymbols === "JNJ") {
 					stockArray[14][1]+=parseFloat(dividends);
 				}
-				else if (tempSymbols === "^GSPC") {
+				else if (tempSymbols === "%5eGSPC") {
 					stockArray[15][1]+=parseFloat(dividends);
 				}
 				else if (tempSymbols === "KO") {

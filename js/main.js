@@ -21,6 +21,44 @@ for (var i = 0; i < 35; i++) {
   stockArray[i] = [0,0,0,0, 0, 0, 0, ""];
 }
 
+function buildNames() {
+    stockArray[0][0] = "WMT"; stockArray[0][7] = "Wal-Mart Stores Inc.";
+    stockArray[1][0] = "CTL"; stockArray[1][7] = "CenturyLink, Inc. ";
+    stockArray[2][0] = "AXP";stockArray[2][7] = "American Express Company";
+    stockArray[3][0] = "CAT";stockArray[3][7] = "Caterpillar Inc.";
+    stockArray[4][0] = "CVX";stockArray[4][7] = "Chevron Corporation";
+    stockArray[5][0] = "PG";stockArray[5][7] = "The Procter & Gamble Company";
+    stockArray[6][0] = "UTX";stockArray[6][7] = "United Technologies Corporation";
+    stockArray[7][0] = "DD";stockArray[7][7] = "E. I. du Pont de Nemours and Company";
+    stockArray[8][0] = "IBM";stockArray[8][7] = "International Business Machines";
+    stockArray[9][0] = "XOM";stockArray[9][7] = "Exxon Mobil Corporation Company";
+    stockArray[10][0] = "INTC";stockArray[10][7] = "Intel Corporation";
+    stockArray[11][0] = "GS";stockArray[11][7] = "The Goldman Sachs Group";
+    stockArray[12][0] = "MMM";stockArray[12][7] = "3M Company";
+    stockArray[13][0] = "MRK";stockArray[13][7] = "Merck & Co. Inc.";
+    stockArray[14][0] = "JNJ";stockArray[14][7] = "Johnson & Johnson";
+    stockArray[15][0] = "%5eGSPC";stockArray[15][7] = "S&P 500";
+    stockArray[16][0] = "KO";stockArray[16][7] = "The Coca-Cola Company";
+    stockArray[17][0] = "VZ";stockArray[17][7] = "Verizon Communications Inc.";
+    stockArray[18][0] = "T";stockArray[18][7] = "AT&T Inc.";
+    stockArray[19][0] = "JPM";stockArray[19][7] = "JPMorgan Chase & Co.";
+    stockArray[20][0] = "CSCO";stockArray[20][7] = "Cisco Systems, Inc.";
+    stockArray[21][0] = "TRV";stockArray[21][7] = "The Travelers Companies, Inc.";
+    stockArray[22][0] = "CMCSA";stockArray[22][7] = "Comcast Corporation";
+    stockArray[23][0] = "PFE";stockArray[23][7] = "Pfizer Inc.";
+    stockArray[24][0] = "S";stockArray[24][7] = "Sprint Corporation";
+    stockArray[25][0] = "MSFT";stockArray[25][7] = "Microsoft Corporation";
+    stockArray[26][0] = "BA";stockArray[26][7] = "The Boeing Company";
+    stockArray[27][0] = "GE";stockArray[27][7] = "General Electric Company";
+    stockArray[28][0] = "UNH";stockArray[28][7] = "UnitedHealth Group Incorporated";
+    stockArray[29][0] = "V";stockArray[29][7] = "Visa Inc.";
+    stockArray[30][0] = "HD";stockArray[30][7] = "The Home Depot, Inc.";
+    stockArray[31][0] = "DIS";stockArray[31][7] = "The Walt Disney Company";
+    stockArray[32][0] = "MCD";stockArray[32][7] = "McDonald's Corp.";
+    stockArray[33][0] = "TWC";stockArray[33][7] = "Time Warner Cable Inc.";
+    stockArray[34][0] = "NKE";stockArray[34][7] = "NIKE, Inc.";
+}
+
 function getDividends(urlToUse) {
 	for (var i = 0; i < 35; i++) {
   		stockArray[i][3] = 0;
@@ -33,119 +71,24 @@ function getDividends(urlToUse) {
         for(Symbol in data.query.results.quote) {
  			 if(data.query.results.quote.hasOwnProperty(Symbol)) {
  			  	var tempSymbols = data.query.results.quote[Symbol].Symbol;
-				var dividends = data.query.results.quote[Symbol].Dividends
-				if (tempSymbols === "WMT") {
-					stockArray[0][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CTL") {
-					stockArray[1][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "AXP") {
-					stockArray[2][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CAT") {
-					stockArray[3][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CVX") {
-					stockArray[4][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "PG") {
-					stockArray[5][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "UTX") {
-					stockArray[6][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "DD") {
-					stockArray[7][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "IBM") {
-					stockArray[8][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "XOM") {
-					stockArray[9][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "INTC") {
-					stockArray[10][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "GS") {
-					stockArray[11][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MMM") {
-					stockArray[12][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MRK") {
-					stockArray[13][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "JNJ") {
-					stockArray[14][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "^GSPC") {
-					stockArray[15][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "KO") {
-					stockArray[16][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "VZ") {
-					stockArray[17][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "T") {
-					stockArray[18][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "JPM") {
-					stockArray[19][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CSCO") {
-					stockArray[20][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "TRV") {
-					stockArray[21][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CMCSA") {
-					stockArray[22][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "PFE") {
-					stockArray[23][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "S") {
-					stockArray[24][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MSFT") {
-					stockArray[25][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "BA") {
-					stockArray[26][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "GE") {
-					stockArray[27][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "UNH") {
-					stockArray[28][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "V") {
-					stockArray[29][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "HD") {
-					stockArray[30][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "DIS") {
-					stockArray[31][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MCD") {
-					stockArray[32][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "TWC") {
-					stockArray[33][3]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "NKE") {
-					stockArray[34][3]+=parseFloat(dividends);
-				}
+				var dividends = data.query.results.quote[Symbol].Dividends;
+                 for (var x = 0; x < stockArray.length; x++) {
+                    if (tempSymbols === stockArray[x][0]) {
+                        stockArray[x][3]+=parseFloat(dividends);
+                    }
+                 }				
  			 }
 		}
 		output();
     })
         .fail(function (jqxhr, textStatus, error) {
+        alert("fail");
         var err = textStatus + ", " + error;
-            $("#result").text('Request failed: ' + err);
+        $("#result").text('Request failed: ' + err);
+        for (var i = 0; i < 35; i++) {
+  		    stockArray[i][3] = 0;
+	   }
+        output();
     });
 }
 
@@ -162,120 +105,23 @@ function getHistoryPrice(urlToUse) {
  			 if(data.query.results.quote.hasOwnProperty(Symbol)) {
  			  	var tempSymbols = data.query.results.quote[Symbol].Symbol;
 				var dividends = data.query.results.quote[Symbol].Close;
-				if (tempSymbols === "WMT") {
-					stockArray[0][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CTL") {
-					stockArray[1][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "AXP") {
-					stockArray[2][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CAT") {
-					stockArray[3][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CVX") {
-					stockArray[4][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "PG") {
-					stockArray[5][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "UTX") {
-					stockArray[6][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "DD") {
-					stockArray[7][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "IBM") {
-					stockArray[8][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "XOM") {
-					stockArray[9][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "INTC") {
-					stockArray[10][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "GS") {
-					stockArray[11][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MMM") {
-					stockArray[12][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MRK") {
-					stockArray[13][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "JNJ") {
-					stockArray[14][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "%5eGSPC") {
-					stockArray[15][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "KO") {
-					stockArray[16][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "VZ") {
-					stockArray[17][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "T") {
-					stockArray[18][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "JPM") {
-					stockArray[19][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CSCO") {
-					stockArray[20][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "TRV") {
-					stockArray[21][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CMCSA") {
-					stockArray[22][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "PFE") {
-					stockArray[23][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "S") {
-					stockArray[24][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MSFT") {
-					stockArray[25][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "BA") {
-					stockArray[26][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "GE") {
-					stockArray[27][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "UNH") {
-					stockArray[28][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "V") {
-					stockArray[29][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "HD") {
-					stockArray[30][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "DIS") {
-					stockArray[31][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MCD") {
-					stockArray[32][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "TWC") {
-					stockArray[33][1]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "NKE") {
-					stockArray[34][1]+=parseFloat(dividends);
-				}
+                 for (var x = 0; x < stockArray.length; x++) {
+                    if (tempSymbols === stockArray[x][0]) {
+                        stockArray[x][1]+=parseFloat(dividends);
+                    }
+                 }
  			 }
 		}
 		
 		getDividends(urlD);
     })
         .fail(function (jqxhr, textStatus, error) {
+        alert("fail-H");
         var err = textStatus + ", " + error;
             $("#result").text('Request failed: ' + err);
-    });
+    })
+        .error
+    ;
 }
 
 function getCurrentStock(urlToUse) {
@@ -295,181 +141,11 @@ function getCurrentStock(urlToUse) {
  			  	//var name = "temp";
 				var dividends = data.query.results.quote[Symbol].LastTradePriceOnly
 				//var dividends = data.query.results.quote[Symbol].Close;
-				if (tempSymbols === "WMT") {
-					stockArray[0][0] = tempSymbols;
-					stockArray[0][2]+=parseFloat(dividends);
-					stockArray[0][7] = name;
-				}
-				else if (tempSymbols === "CTL") {
-					stockArray[1][0] = tempSymbols;
-					stockArray[1][2]+=parseFloat(dividends);
-					stockArray[1][7] = name;
-				}
-				else if (tempSymbols === "AXP") {
-					stockArray[2][0] = tempSymbols;
-					stockArray[2][2]+=parseFloat(dividends);
-					stockArray[2][7] = name;
-				}
-				else if (tempSymbols === "CAT") {
-					stockArray[3][0] = tempSymbols;
-					stockArray[3][2]+=parseFloat(dividends);
-					stockArray[3][7] = name;
-				}
-				else if (tempSymbols === "CVX") {
-					stockArray[4][0] = tempSymbols;
-					stockArray[4][2]+=parseFloat(dividends);
-					stockArray[4][7] = name;
-				}
-				else if (tempSymbols === "PG") {
-					stockArray[5][0] = tempSymbols;
-					stockArray[5][2]+=parseFloat(dividends);
-					stockArray[5][7] = name;
-				}
-				else if (tempSymbols === "UTX") {
-					stockArray[6][0] = tempSymbols;
-					stockArray[6][2]+=parseFloat(dividends);
-					stockArray[6][7] = name;
-				}
-				else if (tempSymbols === "DD") {
-					stockArray[7][0] = tempSymbols;
-					stockArray[7][2]+=parseFloat(dividends);
-					stockArray[7][7] = name;
-				}
-				else if (tempSymbols === "IBM") {
-					stockArray[8][0] = tempSymbols;
-					stockArray[8][2]+=parseFloat(dividends);
-					stockArray[8][7] = name;
-				}
-				else if (tempSymbols === "XOM") {
-					stockArray[9][0] = tempSymbols;	
-					stockArray[9][2]+=parseFloat(dividends);
-					stockArray[9][7] = name;
-				}
-				else if (tempSymbols === "INTC") {
-					stockArray[10][0] = tempSymbols;
-					stockArray[10][2]+=parseFloat(dividends);
-					stockArray[10][7] = name;
-				}
-				else if (tempSymbols === "GS") {
-					stockArray[11][0] = tempSymbols;
-					stockArray[11][2]+=parseFloat(dividends);
-					stockArray[11][7] = name;
-				}
-				else if (tempSymbols === "MMM") {
-					stockArray[12][0] = tempSymbols;
-					stockArray[12][2]+=parseFloat(dividends);
-					stockArray[12][7] = name;
-				}
-				else if (tempSymbols === "MRK") {
-					stockArray[13][0] = tempSymbols;
-					stockArray[13][2]+=parseFloat(dividends);
-					stockArray[13][7] = name;
-				}
-				else if (tempSymbols === "JNJ") {
-					stockArray[14][0] = tempSymbols;
-					stockArray[14][2]+=parseFloat(dividends);
-					stockArray[14][7] = name;
-				}
-				else if (tempSymbols === "%5eGSPC") {
-					stockArray[15][0] = "^GSPC";
-					stockArray[15][2]+=parseFloat(dividends);
-					stockArray[15][7] = name;
-				}
-				else if (tempSymbols === "KO") {
-					stockArray[16][0] = tempSymbols;
-					stockArray[16][2]+=parseFloat(dividends);
-					stockArray[16][7] = name;
-				}
-				else if (tempSymbols === "VZ") {
-					stockArray[17][0] = tempSymbols;
-					stockArray[17][2]+=parseFloat(dividends);
-					stockArray[17][7] = name;
-				}
-				else if (tempSymbols === "T") {
-					stockArray[18][0] = tempSymbols;
-					stockArray[18][2]+=parseFloat(dividends);
-					stockArray[18][7] = name;
-				}
-				else if (tempSymbols === "JPM") {
-					stockArray[19][0] = tempSymbols;
-					stockArray[19][2]+=parseFloat(dividends);
-					stockArray[19][7] = name;
-				}
-				else if (tempSymbols === "CSCO") {
-					stockArray[20][0] = tempSymbols;
-					stockArray[20][2]+=parseFloat(dividends);
-					stockArray[20][7] = name;
-				}
-				else if (tempSymbols === "TRV") {
-					stockArray[21][0] = tempSymbols;
-					stockArray[21][2]+=parseFloat(dividends);
-					stockArray[21][7] = name;
-				}
-				else if (tempSymbols === "CMCSA") {
-					stockArray[22][0] = tempSymbols;
-					stockArray[22][2]+=parseFloat(dividends);
-					stockArray[22][7] = name;
-				}
-				else if (tempSymbols === "PFE") {
-					stockArray[23][0] = tempSymbols;
-					stockArray[23][2]+=parseFloat(dividends);
-					stockArray[23][7] = name;
-				}
-				else if (tempSymbols === "S") {
-					stockArray[24][0] = tempSymbols;
-					stockArray[24][2]+=parseFloat(dividends);
-					stockArray[24][7] = name;
-				}
-				else if (tempSymbols === "MSFT") {
-					stockArray[25][0] = tempSymbols;
-					stockArray[25][2]+=parseFloat(dividends);
-					stockArray[25][7] = name;
-				}
-				else if (tempSymbols === "BA") {
-					stockArray[26][0] = tempSymbols;
-					stockArray[26][2]+=parseFloat(dividends);
-					stockArray[26][7] = name;
-				}
-				else if (tempSymbols === "GE") {
-					stockArray[27][0] = tempSymbols;
-					stockArray[27][2]+=parseFloat(dividends);
-					stockArray[27][7] = name;
-				}
-				else if (tempSymbols === "UNH") {
-					stockArray[28][0] = tempSymbols;
-					stockArray[28][2]+=parseFloat(dividends);
-					stockArray[28][7] = name;
-				}
-				else if (tempSymbols === "V") {
-					stockArray[29][0] = tempSymbols;
-					stockArray[29][2]+=parseFloat(dividends);
-					stockArray[29][7] = name;
-				}
-				else if (tempSymbols === "HD") {
-					stockArray[30][0] = tempSymbols;
-					stockArray[30][2]+=parseFloat(dividends);
-					stockArray[30][7] = name;
-				}
-				else if (tempSymbols === "DIS") {
-					stockArray[31][0] = tempSymbols;
-					stockArray[31][2]+=parseFloat(dividends);
-					stockArray[31][7] = name;
-				}
-				else if (tempSymbols === "MCD") {
-					stockArray[32][0] = tempSymbols;
-					stockArray[32][2]+=parseFloat(dividends);
-					stockArray[32][7] = name;
-				}
-				else if (tempSymbols === "TWC") {
-					stockArray[33][0] = tempSymbols;
-					stockArray[33][2]+=parseFloat(dividends);
-					stockArray[33][7] = name;
-				}
-				else if (tempSymbols === "NKE") {
-					stockArray[34][0] = tempSymbols;
-					stockArray[34][2]+=parseFloat(dividends);
-					stockArray[34][7] = name;
-				}
+                for (var x = 0; x < stockArray.length; x++) {
+                    if (tempSymbols === stockArray[x][0]) {
+                        stockArray[x][2]+=parseFloat(dividends);
+                    }
+                }
  			 }
 		}
 		
@@ -494,111 +170,11 @@ function getCustomCurrentPrice(urlToUse) {
  			 if(data.query.results.quote.hasOwnProperty(Symbol)) {
  			  	var tempSymbols = data.query.results.quote[Symbol].Symbol;
 				var dividends = data.query.results.quote[Symbol].Close;
-				if (tempSymbols === "WMT") {
-					stockArray[0][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CTL") {
-					stockArray[1][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "AXP") {
-					stockArray[2][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CAT") {
-					stockArray[3][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CVX") {
-					stockArray[4][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "PG") {
-					stockArray[5][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "UTX") {
-					stockArray[6][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "DD") {
-					stockArray[7][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "IBM") {
-					stockArray[8][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "XOM") {
-					stockArray[9][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "INTC") {
-					stockArray[10][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "GS") {
-					stockArray[11][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MMM") {
-					stockArray[12][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MRK") {
-					stockArray[13][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "JNJ") {
-					stockArray[14][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "%5eGSPC") {
-					stockArray[15][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "KO") {
-					stockArray[16][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "VZ") {
-					stockArray[17][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "T") {
-					stockArray[18][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "JPM") {
-					stockArray[19][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CSCO") {
-					stockArray[20][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "TRV") {
-					stockArray[21][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "CMCSA") {
-					stockArray[22][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "PFE") {
-					stockArray[23][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "S") {
-					stockArray[24][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MSFT") {
-					stockArray[25][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "BA") {
-					stockArray[26][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "GE") {
-					stockArray[27][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "UNH") {
-					stockArray[28][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "V") {
-					stockArray[29][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "HD") {
-					stockArray[30][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "DIS") {
-					stockArray[31][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "MCD") {
-					stockArray[32][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "TWC") {
-					stockArray[33][2]+=parseFloat(dividends);
-				}
-				else if (tempSymbols === "NKE") {
-					stockArray[34][2]+=parseFloat(dividends);
-				}
+                 for (var x = 0; x < stockArray.length; x++) {
+                    if (tempSymbols === stockArray[x][0]) {
+                        stockArray[x][2]+=parseFloat(dividends);
+                    }
+                 }
  			 }
 		}
 		
@@ -730,9 +306,12 @@ function customYear() {
     year = parseInt(document.getElementById("eYearBox").value);
     yearSubtract = year - sYear; 
     refreshURLS();
-     urlCH = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22"+(year)+"-"+eMonth+"-"+eDate+"%22%20and%20endDate%20%3D%20%22"+(year)+"-"+eMonth+"-"+eDate+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
+    if (yearSubtract == 0) {
+        urlD = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22" + (year) + "-"+(sMonth-1)+"-"+(sDate)+"%22%20and%20endDate%20%3D%20%22" + (year) + "-"+(eMonth)+"-"+eDate+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
+        console.log(urlD);
+    }
+    var urlCH = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22"+(year)+"-"+eMonth+"-"+eDate+"%22%20and%20endDate%20%3D%20%22"+(year)+"-"+eMonth+"-"+eDate+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
 	getCustomCurrentPrice(urlCH);
-    console.log(urlH);
 }
 function updateFunction() {
 	clearList();
@@ -839,7 +418,7 @@ $(window).scroll(function (event) {
 });
 $(document).ready(function() {
     $("#custom-year-box").hide();
-    console.log(urlD);
+    buildNames();
 	f3yrURL();
 	$('#table2excel').on('click', 'tbody tr', function(event) {
    	 $(this).addClass('highlight').siblings().removeClass('highlight');

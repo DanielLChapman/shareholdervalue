@@ -14,7 +14,7 @@
 		margin-left: auto;
 		margin-right: auto;
 		position: relative;
-		width: 550px;
+		width: 700px;
 	}
 	.jumbotron h1 {
 		position: relative;
@@ -23,6 +23,9 @@
 	.jumbotron {
 		text-align: center;
 	}
+    .need-right-margin {
+        margin-right: 20px;
+    }
 	#top-nav {
 		height: 3.5em;
 		position: fixed;

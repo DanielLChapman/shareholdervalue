@@ -1,26 +1,26 @@
-var urlD3y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%222012-12-31%22%20and%20endDate%20%3D%20%222015-12-31%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
-
-var urlD1y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%222014-12-31%22%20and%20endDate%20%3D%20%222015-12-31%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
-
-var urlD5y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%222010-12-31%22%20and%20endDate%20%3D%20%222015-12-31%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
-
 var urlCSQ = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
+var yearsBehind = 0;
+var sMonth = eMonth = 12;
+var sDate = eDate = 31;
+var year = new Date().getFullYear();
 
-var urlHSQ1y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%222014-12-31%22%20and%20endDate%20%3D%20%222014-12-31%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback="
+var yearSubtract = 3;
+//var urlCSQ = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22" + (year) + "-" + sMonth + "-"+sDate+"%22%20and%20endDate%20%3D%20%22"+(year)+"-"+eMonth+"-"+eDate+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
 
-var urlHSQ3y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%222012-12-31%22%20and%20endDate%20%3D%20%222012-12-31%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback="
+// no holidays
 
-var urlHSQ5y = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%222010-12-31%22%20and%20endDate%20%3D%20%222010-12-31%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback="
+var urlD = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22" + (year - yearSubtract) + "-"+sMonth+"-"+sDate+"%22%20and%20endDate%20%3D%20%22" + (year) + "-12-31%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
 
-var url2UseH = "";
-var url2UseD = "";
+var urlH = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22"+(year-yearSubtract)+"-"+sMonth+"-"+sDate+"%22%20and%20endDate%20%3D%20%22"+(year-yearSubtract)+"-"+sMonth+"-"+sDate+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
 
 var stockArray = new Array(35);
+var nameBool = false;
+var sCount=hCount=cCount=dCount=yCount=pCount=tCount=0;
+
 for (var i = 0; i < 35; i++) {
   stockArray[i] = [0,0,0,0, 0, 0, 0, ""];
 }
-var nameBool = false;
-var sCount=hCount=cCount=dCount=yCount=pCount=tCount=0;
+
 function getDividends(urlToUse) {
 	for (var i = 0; i < 35; i++) {
   		stockArray[i][3] = 0;
@@ -269,7 +269,8 @@ function getHistoryPrice(urlToUse) {
 				}
  			 }
 		}
-		getDividends(url2UseD);
+		
+		getDividends(urlD);
     })
         .fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ", " + error;
@@ -282,15 +283,18 @@ function getCurrentStock(urlToUse) {
   		stockArray[i][2] = 0;
 	}
     var url = urlToUse;
-
+    
     $.getJSON(url)
         .done(function (data) {
         var Symbol, count = 0;
         for(Symbol in data.query.results.quote) {
  			 if(data.query.results.quote.hasOwnProperty(Symbol)) {
  			  	var tempSymbols = data.query.results.quote[Symbol].symbol;
+ 			  	//var tempSymbols = data.query.results.quote[Symbol].Symbol;
  			  	var name = data.query.results.quote[Symbol].Name;
+ 			  	//var name = "temp";
 				var dividends = data.query.results.quote[Symbol].LastTradePriceOnly
+				//var dividends = data.query.results.quote[Symbol].Close;
 				if (tempSymbols === "WMT") {
 					stockArray[0][0] = tempSymbols;
 					stockArray[0][2]+=parseFloat(dividends);
@@ -366,8 +370,8 @@ function getCurrentStock(urlToUse) {
 					stockArray[14][2]+=parseFloat(dividends);
 					stockArray[14][7] = name;
 				}
-				else if (tempSymbols === "^GSPC") {
-					stockArray[15][0] = tempSymbols;
+				else if (tempSymbols === "%5eGSPC") {
+					stockArray[15][0] = "^GSPC";
 					stockArray[15][2]+=parseFloat(dividends);
 					stockArray[15][7] = name;
 				}
@@ -468,13 +472,144 @@ function getCurrentStock(urlToUse) {
 				}
  			 }
 		}
-		getHistoryPrice(url2UseH);
+		
+		getHistoryPrice(urlH);
     })
         .fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ", " + error;
             $("#result").text('Request failed: ' + err);
     });
 }
+
+function getCustomCurrentPrice(urlToUse) {
+	for (var i = 0; i < 35; i++) {
+  		stockArray[i][2] = 0;
+	}
+    var url = urlToUse;
+
+    $.getJSON(url)
+        .done(function (data) {
+        var Symbol, count = 0;
+        for(Symbol in data.query.results.quote) {
+ 			 if(data.query.results.quote.hasOwnProperty(Symbol)) {
+ 			  	var tempSymbols = data.query.results.quote[Symbol].Symbol;
+				var dividends = data.query.results.quote[Symbol].Close;
+				if (tempSymbols === "WMT") {
+					stockArray[0][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "CTL") {
+					stockArray[1][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "AXP") {
+					stockArray[2][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "CAT") {
+					stockArray[3][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "CVX") {
+					stockArray[4][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "PG") {
+					stockArray[5][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "UTX") {
+					stockArray[6][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "DD") {
+					stockArray[7][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "IBM") {
+					stockArray[8][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "XOM") {
+					stockArray[9][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "INTC") {
+					stockArray[10][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "GS") {
+					stockArray[11][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "MMM") {
+					stockArray[12][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "MRK") {
+					stockArray[13][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "JNJ") {
+					stockArray[14][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "%5eGSPC") {
+					stockArray[15][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "KO") {
+					stockArray[16][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "VZ") {
+					stockArray[17][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "T") {
+					stockArray[18][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "JPM") {
+					stockArray[19][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "CSCO") {
+					stockArray[20][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "TRV") {
+					stockArray[21][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "CMCSA") {
+					stockArray[22][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "PFE") {
+					stockArray[23][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "S") {
+					stockArray[24][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "MSFT") {
+					stockArray[25][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "BA") {
+					stockArray[26][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "GE") {
+					stockArray[27][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "UNH") {
+					stockArray[28][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "V") {
+					stockArray[29][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "HD") {
+					stockArray[30][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "DIS") {
+					stockArray[31][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "MCD") {
+					stockArray[32][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "TWC") {
+					stockArray[33][2]+=parseFloat(dividends);
+				}
+				else if (tempSymbols === "NKE") {
+					stockArray[34][2]+=parseFloat(dividends);
+				}
+ 			 }
+		}
+		
+		getHistoryPrice(urlH);
+    })
+        .fail(function (jqxhr, textStatus, error) {
+        var err = textStatus + ", " + error;
+            $("#result").text('Request failed: ' + err);
+    });
+}
+
 function selectionSort(items, selectVariable) {
   var length = items.length;
   
@@ -531,13 +666,27 @@ function output() {
 function clearList() {
 	$('#table2excel').empty();
 	$('#table2excel').append('<thead><tr><th>Position</th><th onclick="ssort(\'S\')">Symbol</th><th onclick="ssort(\'H\')">Historic Price</th><th onclick="ssort(\'C\')">Current Price</th><th onclick="ssort(\'D\')">Dividends</th><th onclick="ssort(\'Y\')">Yield</th><th onclick="ssort(\'P\')">Price Appreciation</th><th onclick="ssort(\'T\')">TSV</th></tr></thead><tbody>');
+    sMonth = eMonth = 12;
+    sDate = eDate = 31;
 }
+function refreshURLS() {
+    urlCSQ = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
+    
+    urlH = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22"+(year-yearSubtract)+"-"+sMonth+"-"+sDate+"%22%20and%20endDate%20%3D%20%22"+(year-yearSubtract)+"-"+sMonth+"-"+sDate+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
+    
+    urlD = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22" + (year - yearSubtract) + "-"+sMonth+"-"+sDate+"%22%20and%20endDate%20%3D%20%22" + (year) + "-"+eMonth+"-"+eDate+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
+}
+
 function f1yrURL() {
 	$('#currentYear').empty();
 	clearList();
 	$('#currentYear').append("<p>Current Year: 1yr</p>");
-	url2UseH = urlHSQ1y;
-	url2UseD = urlD1y;
+    yearsBehind = 0;
+	yearSubtract = 1;
+    sDate = eDate = 30;
+    sMonth = eMonth = 12;
+    year = new Date().getFullYear();
+    refreshURLS();
 	getCurrentStock(urlCSQ);
 	console.log("1 yr");
 }
@@ -545,8 +694,12 @@ function f3yrURL() {
 	$('#currentYear').empty();
 	clearList();
 	$('#currentYear').append("<p>Current Year: 3yr</p>");
-	url2UseH = urlHSQ3y;
-	url2UseD = urlD3y;
+    yearsBehind = 0;
+	yearSubtract = 3; 
+    sDate = eDate = 30;
+    sMonth = eMonth = 12;
+    year = new Date().getFullYear();
+    refreshURLS();
 	getCurrentStock(urlCSQ);
 	console.log("3 yr");
 }
@@ -554,10 +707,32 @@ function f5yrURL() {
 	$('#currentYear').empty();
 	clearList();
 	$('#currentYear').append("<p>Current Year: 5yr</p>");
-	url2UseH = urlHSQ5y;
-	url2UseD = urlD5y;
+    yearsBehind = 0;
+	yearSubtract = 5; 
+    sDate = eDate = 30;
+    sMonth = eMonth = 12;
+    year = new Date().getFullYear();
+    refreshURLS();
 	getCurrentStock(urlCSQ);
 	console.log("5 yr");
+    console.log(urlH);
+}
+function customYear() {
+    $('#currentYear').empty();
+	clearList();
+	$('#currentYear').append("<p>Current Year: Custom yr</p>");
+    yearsBehind = 0;
+    eMonth = parseInt(document.getElementById("eMonthBox").value);
+    sMonth = parseInt(document.getElementById("sMonthBox").value);
+    eDate = parseInt(document.getElementById("eDateBox").value);
+    sDate = parseInt(document.getElementById("sDateBox").value);
+    var sYear = parseInt(document.getElementById("sYearBox").value);
+    year = parseInt(document.getElementById("eYearBox").value);
+    yearSubtract = year - sYear; 
+    refreshURLS();
+     urlCH = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22"+(year)+"-"+eMonth+"-"+eDate+"%22%20and%20endDate%20%3D%20%22"+(year)+"-"+eMonth+"-"+eDate+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
+	getCustomCurrentPrice(urlCH);
+    console.log(urlH);
 }
 function updateFunction() {
 	clearList();
@@ -568,7 +743,6 @@ function updateFunction() {
 		var temp = stockArray[i][0];
 		if (nameBool) {
 			temp = stockArray[i][7];
-			console.log('here');
 		}
 		$('#table2excel').append("<tr><td>"+(i+1)+"</td><td>" + temp + "</td><td>" + stockArray[i][1] + "</td><td>" + stockArray[i][2] + "</td><td>" + stockArray[i][3] + "</td><td>" + stockArray[i][4] + "%</td><td>" + stockArray[i][5] + "%</td><td>" + stockArray[i][6] + "%</td></tr>");
 	}	
@@ -664,6 +838,8 @@ $(window).scroll(function (event) {
     }
 });
 $(document).ready(function() {
+    $("#custom-year-box").hide();
+    console.log(urlD);
 	f3yrURL();
 	$('#table2excel').on('click', 'tbody tr', function(event) {
    	 $(this).addClass('highlight').siblings().removeClass('highlight');

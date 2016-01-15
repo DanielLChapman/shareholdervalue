@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="dist/jquery.battatech.excelexport.js"></script>
+<head><script  src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script async src="dist/jquery.battatech.excelexport.js"></script>
 <link rel="stylesheet" type="text/css" href="css/main.css">
-<script src="http://wsnippets.com/secure_download.js"></script>
+<script  src="http://wsnippets.com/secure_download.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
@@ -13,7 +13,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="js/main.js"></script>
+<script async src="js/main.js"></script>
 </head>
 
 <body>
@@ -30,17 +30,36 @@
 <div class="jumbotron">
 	<h1>Dow 30 Total Shareholder Value Calculator</h1>
 	<br />
-	<h2>Featuring Comcast, Sprint, CenturyLink, At&t and Time Warner Cable</h2>
+	<h2>Including Comcast, Sprint, CenturyLink, At&t and Time Warner Cable</h2>
 </div>
 <p></p>
+    
+<div id="custom-year-box" class="nav nav-bar col-xs-12" style="position: relative; text-align: center; margin-bottom: 20px;">
+    <form action="demo_form.asp">
+Start Day: <input type="text" name="Start-Date" id="sDateBox" value="31" class="need-right-margin">End Day: <input type="text" name="End-Date" id="eDateBox" value="31"><br>
+Start Month: <input type="text" name="Start-Month" id="sMonthBox" value="12" class="need-right-margin">End Month: <input type="text" name="End-Month" id="eMonthBox" value="12"><br>
+Start Year: <input type="text" name="Start-Year" id="sYearBox" value="2013" class="need-right-margin">
+End Year: <input type="text" name="End-year" id="eYearBox" value="2013"><br>
+</form>
+
+<p>If an error shows up, please double check that one of the days is not a holiday or a weekend date.</p>
+    <div id="customYearButton" onclick="customYear();" style="width: 80px; height: 65px; margin: 0 auto; border:1px solid rgb(42,42,42); border-radius: 15px;">
+        <br />calculate
+    </div>
+</div>
+    
 <div id="table-nav" class="nav nav-bar col-xs-12" style="position: relative; ">
 	<ul class="nav nav-tab" id="table-nav-ul">
 		<li  onclick="f1yrURL()"><a href="#/">1 Year</a></li>
 		<li onclick="f3yrURL()" class=" active"><a href="#/">3 Years</a></li>
 		<li  onclick="f5yrURL()"><a href="#/">5 Years</a></li>
 		<li  id="toggle-li" onclick="toggleNames()"><a href="#/">Toggle Names</a></li>
+		<li id="custom-box-show"><a href="#/">Custom Year</a></li>
 	</ul>
 	<script>
+        $('#custom-box-show').click(function() {
+            $("#custom-year-box").show();
+        });
 		$('#table-nav ul li:nth-child(-n+3)').click(function() {
 			$('li').removeClass('active');
 			$(this).addClass('active');

@@ -2,6 +2,7 @@ var urlCSQ = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20ya
 var yearsBehind = 0;
 var sMonth = eMonth = 12;
 var sDate = eDate = 31;
+var sYear = 2014;
 var year = new Date().getFullYear();
 
 var yearSubtract = 3;
@@ -58,7 +59,35 @@ function buildNames() {
     stockArray[33][0] = "TWC";stockArray[33][7] = "Time Warner Cable Inc.";
     stockArray[34][0] = "NKE";stockArray[34][7] = "NIKE, Inc.";
 }
-
+function inDateRange(tDate) {
+    var tempDate = tDate.split("-");
+    //check if the years are out of range, if yes, return false. Else, check the months, if those are, return false, else, check the dates.
+    if (tempDate[0] < sYear) {
+        return false;
+    }
+    else if (tempDate[0] > year) {
+        return false;
+    }
+    else {
+        if (tempDate[1] < sMonth && tempDate[0] <= sYear) {
+            return false;
+        }
+        else if (tempDate[1] > eMonth && tempDate[0] >= year) {
+            return false;
+        }
+        else {
+            if (tempDate[2] < sDate && tempDate[1] <= sMonth && tempDate[0] <= sYear) {
+                return false;
+            }
+            else if (tempDate[2] > eDate && tempDate[1] >= eMonth && tempDate[0] >= year) {
+                return false;
+            }
+            else {
+                return true
+            }
+        }
+    }
+}
 function getDividends(urlToUse) {
 	for (var i = 0; i < 35; i++) {
   		stockArray[i][3] = 0;
@@ -72,11 +101,15 @@ function getDividends(urlToUse) {
  			 if(data.query.results.quote.hasOwnProperty(Symbol)) {
  			  	var tempSymbols = data.query.results.quote[Symbol].Symbol;
 				var dividends = data.query.results.quote[Symbol].Dividends;
-                 for (var x = 0; x < stockArray.length; x++) {
+                var tempDate = data.query.results.quote[Symbol].Date;
+                 //console.log(tempDate + " " + inDateRange(tempDate) + " " + sYear + " " + year);
+                if (inDateRange(tempDate)) {
+                    for (var x = 0; x < stockArray.length; x++) {
                     if (tempSymbols === stockArray[x][0]) {
                         stockArray[x][3]+=parseFloat(dividends);
                     }
-                 }				
+                 }	
+                }		
  			 }
 		}
 		output();
@@ -116,7 +149,7 @@ function getHistoryPrice(urlToUse) {
 		getDividends(urlD);
     })
         .fail(function (jqxhr, textStatus, error) {
-        alert("fail-H");
+        console.log("here");
         var err = textStatus + ", " + error;
             $("#result").text('Request failed: ' + err);
     })
@@ -262,6 +295,7 @@ function f1yrURL() {
     sDate = eDate = 30;
     sMonth = eMonth = 12;
     year = new Date().getFullYear();
+    sYear = year - yearSubtract;
     refreshURLS();
 	getCurrentStock(urlCSQ);
 	console.log("1 yr");
@@ -275,6 +309,7 @@ function f3yrURL() {
     sDate = eDate = 30;
     sMonth = eMonth = 12;
     year = new Date().getFullYear();
+    sYear = year - yearSubtract;
     refreshURLS();
 	getCurrentStock(urlCSQ);
 	console.log("3 yr");
@@ -288,6 +323,7 @@ function f5yrURL() {
     sDate = eDate = 30;
     sMonth = eMonth = 12;
     year = new Date().getFullYear();
+    sYear = year - yearSubtract;
     refreshURLS();
 	getCurrentStock(urlCSQ);
 	console.log("5 yr");
@@ -302,7 +338,7 @@ function customYear() {
     sMonth = parseInt(document.getElementById("sMonthBox").value);
     eDate = parseInt(document.getElementById("eDateBox").value);
     sDate = parseInt(document.getElementById("sDateBox").value);
-    var sYear = parseInt(document.getElementById("sYearBox").value);
+    sYear = parseInt(document.getElementById("sYearBox").value);
     year = parseInt(document.getElementById("eYearBox").value);
     yearSubtract = year - sYear; 
     refreshURLS();

@@ -256,7 +256,7 @@ function selectionSortSymbol(items) {
 }
 function output() {
 
-	for (var i = 0; i < 35; i++) {
+	for (var i = 0; i < 34; i++) {
 		var BSP = stockArray[i][1];
 		var CSP = stockArray[i][2];
 		var Yield = stockArray[i][3]/BSP*100;

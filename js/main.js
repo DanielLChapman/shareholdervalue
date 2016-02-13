@@ -38,7 +38,6 @@ function buildNames() {
     stockArray[12][0] = "MMM";stockArray[12][7] = "3M Company";
     stockArray[13][0] = "MRK";stockArray[13][7] = "Merck & Co. Inc.";
     stockArray[14][0] = "JNJ";stockArray[14][7] = "Johnson & Johnson";
-    stockArray[15][0] = "^GSPC";stockArray[15][7] = "S&P 500";
     stockArray[16][0] = "KO";stockArray[16][7] = "The Coca-Cola Company";
     stockArray[17][0] = "VZ";stockArray[17][7] = "Verizon Communications Inc.";
     stockArray[18][0] = "T";stockArray[18][7] = "AT&T Inc.";
@@ -340,7 +339,7 @@ function customYear() {
     sDate = parseInt(document.getElementById("sDateBox").value);
     sYear = parseInt(document.getElementById("sYearBox").value);
     year = parseInt(document.getElementById("eYearBox").value);
-    yearSubtract = year - sYear; 
+    yearSubtract = year - sYear ; 
     refreshURLS();
     if (yearSubtract == 0) {
         urlD = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22" + (year) + "-"+(sMonth-1)+"-"+(sDate)+"%22%20and%20endDate%20%3D%20%22" + (year) + "-"+(eMonth)+"-"+eDate+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";

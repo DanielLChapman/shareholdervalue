@@ -38,7 +38,7 @@ function buildNames() {
     stockArray[12][0] = "MMM";stockArray[12][7] = "3M Company";
     stockArray[13][0] = "MRK";stockArray[13][7] = "Merck & Co. Inc.";
     stockArray[14][0] = "JNJ";stockArray[14][7] = "Johnson & Johnson";
-    stockArray[15][0] = "%5eGSPC";stockArray[15][7] = "S&P 500";
+    stockArray[15][0] = "^GSPC";stockArray[15][7] = "S&P 500";
     stockArray[16][0] = "KO";stockArray[16][7] = "The Coca-Cola Company";
     stockArray[17][0] = "VZ";stockArray[17][7] = "Verizon Communications Inc.";
     stockArray[18][0] = "T";stockArray[18][7] = "AT&T Inc.";
@@ -305,7 +305,7 @@ function f3yrURL() {
 	clearList();
 	$('#currentYear').append("<p>Current Year: 3yr</p>");
     yearsBehind = 0;
-	yearSubtract = 3; 
+	yearSubtract = 2; 
     sDate = eDate = 30;
     sMonth = eMonth = 12;
     year = new Date().getFullYear();
@@ -319,7 +319,7 @@ function f5yrURL() {
 	clearList();
 	$('#currentYear').append("<p>Current Year: 5yr</p>");
     yearsBehind = 0;
-	yearSubtract = 5; 
+	yearSubtract = 4; 
     sDate = eDate = 30;
     sMonth = eMonth = 12;
     year = new Date().getFullYear();
@@ -426,6 +426,7 @@ function ssort(identi) {
 	} 
 	updateFunction();
 }
+//from a source online, above my head.
 var tableToExcel = (function () {
         var uri = 'data:application/vnd.ms-excel;base64,'
         , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'

@@ -14,7 +14,7 @@ var urlD = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yaho
 
 var urlH = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(%22WMT%22%2C%22CTL%22%2C%22AXP%22%2C%22CAT%22%2C%22CVX%22%2C%22PG%22%2C%22UTX%22%2C%22DD%22%2C%22IBM%22%2C%22XOM%22%2C%22INTC%22%2C%22GS%22%2C%22MMM%22%2C%22MRK%22%2C%22JNJ%22%2C%22%5EGSPC%22%2C%22KO%22%2C%22VZ%22%2C%22T%22%2C%22JPM%22%2C%22CSCO%22%2C%22TRV%22%2C%22CMCSA%22%2C%22PFE%22%2C%22S%22%2C%22MSFT%22%2C%22BA%22%2C%22GE%22%2C%22UNH%22%2C%22V%22%2C%22HD%22%2C%22DIS%22%2C%22MCD%22%2C%22TWC%22%2C%22NKE%22)%20and%20startDate%20%3D%20%22"+(year-yearSubtract)+"-"+sMonth+"-"+sDate+"%22%20and%20endDate%20%3D%20%22"+(year-yearSubtract)+"-"+sMonth+"-"+sDate+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
 
-var stockArray = new Array(35);
+var stockArray = new Array(34);
 var nameBool = false;
 var sCount=hCount=cCount=dCount=yCount=pCount=tCount=0;
 
@@ -88,7 +88,7 @@ function inDateRange(tDate) {
     }
 }
 function getDividends(urlToUse) {
-	for (var i = 0; i < 35; i++) {
+	for (var i = 0; i < stockArray.length; i++) {
   		stockArray[i][3] = 0;
 	}
     var url = urlToUse;
@@ -125,7 +125,7 @@ function getDividends(urlToUse) {
 }
 
 function getHistoryPrice(urlToUse) {
-	for (var i = 0; i < 35; i++) {
+	for (var i = 0; i < stockArray.length; i++) {
   		stockArray[i][1] = 0;
 	}
     var url = urlToUse;
@@ -157,7 +157,7 @@ function getHistoryPrice(urlToUse) {
 }
 
 function getCurrentStock(urlToUse) {
-	for (var i = 0; i < 35; i++) {
+	for (var i = 0; i < stockArray.length; i++) {
   		stockArray[i][2] = 0;
 	}
     var url = urlToUse;
@@ -190,7 +190,7 @@ function getCurrentStock(urlToUse) {
 }
 
 function getCustomCurrentPrice(urlToUse) {
-	for (var i = 0; i < 35; i++) {
+	for (var i = 0; i < stockArray.length; i++) {
   		stockArray[i][2] = 0;
 	}
     var url = urlToUse;
@@ -304,7 +304,7 @@ function f3yrURL() {
 	clearList();
 	$('#currentYear').append("<p>Current Year: 3yr</p>");
     yearsBehind = 0;
-	yearSubtract = 2; 
+	yearSubtract = 3; 
     sDate = eDate = 30;
     sMonth = eMonth = 12;
     year = new Date().getFullYear();
@@ -318,7 +318,7 @@ function f5yrURL() {
 	clearList();
 	$('#currentYear').append("<p>Current Year: 5yr</p>");
     yearsBehind = 0;
-	yearSubtract = 4; 
+	yearSubtract = 5; 
     sDate = eDate = 30;
     sMonth = eMonth = 12;
     year = new Date().getFullYear();

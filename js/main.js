@@ -18,7 +18,7 @@ var stockArray = new Array(34);
 var nameBool = false;
 var sCount=hCount=cCount=dCount=yCount=pCount=tCount=0;
 
-for (var i = 0; i < 35; i++) {
+for (var i = 0; i < 34; i++) {
   stockArray[i] = [0,0,0,0, 0, 0, 0, ""];
 }
 
@@ -291,7 +291,7 @@ function f1yrURL() {
 	$('#currentYear').append("<p>Current Year: 1yr</p>");
     yearsBehind = 0;
 	yearSubtract = 1;
-    sDate = eDate = 30;
+    sDate = eDate = 31;
     sMonth = eMonth = 12;
     year = new Date().getFullYear();
     sYear = year - yearSubtract;
@@ -305,7 +305,7 @@ function f3yrURL() {
 	$('#currentYear').append("<p>Current Year: 3yr</p>");
     yearsBehind = 0;
 	yearSubtract = 3; 
-    sDate = eDate = 30;
+    sDate = eDate = 31;
     sMonth = eMonth = 12;
     year = new Date().getFullYear();
     sYear = year - yearSubtract;
@@ -319,7 +319,7 @@ function f5yrURL() {
 	$('#currentYear').append("<p>Current Year: 5yr</p>");
     yearsBehind = 0;
 	yearSubtract = 5; 
-    sDate = eDate = 30;
+    sDate = eDate = 31;
     sMonth = eMonth = 12;
     year = new Date().getFullYear();
     sYear = year - yearSubtract;
@@ -454,6 +454,7 @@ $(window).scroll(function (event) {
 });
 $(document).ready(function() {
     console.log(urlH);
+
     $("#custom-year-box").hide();
     buildNames();
 	f3yrURL();

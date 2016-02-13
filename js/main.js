@@ -350,7 +350,7 @@ function customYear() {
 }
 function updateFunction() {
 	clearList();
-	for (var i=0; i< 35; i++ ) {
+	for (var i=0; i< 34; i++ ) {
 		for (var q = 1; q <= 6; q++) {
 			stockArray[i][q] = parseFloat(stockArray[i][q]).toFixed(2);
 		}

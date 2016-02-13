@@ -453,6 +453,7 @@ $(window).scroll(function (event) {
     }
 });
 $(document).ready(function() {
+    console.log(urlH);
     $("#custom-year-box").hide();
     buildNames();
 	f3yrURL();

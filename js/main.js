@@ -18,7 +18,7 @@ var stockArray = new Array(34);
 var nameBool = false;
 var sCount=hCount=cCount=dCount=yCount=pCount=tCount=0;
 
-for (var i = 0; i < 34; i++) {
+for (var i = 0; i < 35; i++) {
   stockArray[i] = [0,0,0,0, 0, 0, 0, ""];
 }
 
@@ -257,7 +257,7 @@ function selectionSortSymbol(items) {
 }
 function output() {
 
-	for (var i = 0; i < 34; i++) {
+	for (var i = 0; i < stockArray.length; i++) {
 		var BSP = stockArray[i][1];
 		var CSP = stockArray[i][2];
 		var Yield = stockArray[i][3]/BSP*100;
@@ -351,7 +351,7 @@ function customYear() {
 }
 function updateFunction() {
 	clearList();
-	for (var i=0; i< 34; i++ ) {
+	for (var i=0; i< stockArray.length; i++ ) {
 		for (var q = 1; q <= 6; q++) {
 			stockArray[i][q] = parseFloat(stockArray[i][q]).toFixed(2);
 		}

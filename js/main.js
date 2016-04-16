@@ -57,6 +57,7 @@ function buildNames() {
     stockArray[31][0] = "MCD";stockArray[31][7] = "McDonald's Corp.";
     stockArray[32][0] = "TWC";stockArray[32][7] = "Time Warner Cable Inc.";
     stockArray[33][0] = "NKE";stockArray[33][7] = "NIKE, Inc.";
+    stockArray[34][0] = "TMUS";stockArray[34][7] = "T-Mobile US, Inc.";
 }
 function inDateRange(tDate) {
     var tempDate = tDate.split("-");

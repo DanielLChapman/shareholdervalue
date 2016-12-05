@@ -1,0 +1,203 @@
+
+    @import url(https://fonts.googleapis.com/css?family=Didact+Gothic|Oswald); 
+    body, html {
+      height: auto;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-y: scroll;
+    }
+    ul {
+      list-style-type: none;
+      margin-bottom: 0em;
+      padding: 0;
+     }
+     li {
+      float: left;
+      margin-right: 3em;
+      display: block;
+      font-weight: 400;
+     }
+    #top-nav {
+      height: 3.5em;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: black;
+      z-index: 2;
+     }
+     #top-nav ul {
+      background-color: black;
+     }
+     #top-nav ul li a {
+      color: gray;
+     }
+     .active {
+      border: 1px solid gray;
+      border-bottom: 0px solid gray;
+     }
+   .jumbotron{
+     height: 62vh;
+     min-height: 400px;
+     background: url(http://daniellchapman.github.io/shareholdervalue/images/jumbotron.png) no-repeat center center;
+     background-size: cover;
+    }
+    .jumbotron h1 {
+      position: relative;
+      text-shadow: 0 0 5px #fff;
+     }
+     .jumbotron {
+      text-align: center;
+     }
+    .jumbotron h2{
+      color: white;
+      top: 2em;
+      position: relative;
+     }	
+     .nav, .jumbotron {
+      font-family: 'Didact Gothic', sans-serif;
+     }
+    .middle-title{
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      position: relative;
+      top: 65px;
+    }
+    h5, h6 {
+      text-align: center;
+      font-family: 'Open Sans', sans-serif;
+    }
+    h6 {
+      width: 80%;
+      left: 10%;
+      position: relative;
+    }
+    
+    
+    .e200width {
+      min-width: 125px;
+      display: inline-block;
+      margin-left: 20px;
+      border-radius: 20px;
+      background: lightblue;
+      color: white;
+      padding: 0;
+      height: 65px;
+      margin-bottom: 10px;
+      text-align: center;
+      vertical-align: top;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+      padding-top: 22.5px;
+    }
+    .container input {
+      width: 125px;
+      font-family: 'Open Sans', sans-serif;
+      vertical-align: top;
+      height: 70px;
+      margin-left: 20px;
+      border:1px solid black;
+      border-radius: 25px;
+      text-align: center;
+      color: white;
+      background: lightblue;
+    }
+
+    .container {
+      padding-top: 20px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto;
+      position: relative;
+      background-color: rgba(245,249,229,.06);
+      padding-bottom: 50px;
+      margin-bottom: -50px;
+    }
+    @media screen and (max-width: 600px) {
+      .container {
+        width: 99%;
+      }
+      .e200width {
+        width: 22%;
+        height: 65px;
+        padding-top: 40px;
+        text-align: center;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+      .container input {
+        width: 24vw;
+        padding-left: 25px;
+        height: 106px;
+      }
+      .special-height {
+        height: 84px;
+        padding-top: 20px;
+      }
+      .fa-arrow-left {
+        height: 105px;
+        left: -24.5vw;
+        top: 85px;
+      }
+    }
+
+    .table {
+        text-align: center;
+        margin: 0 auto;
+        top: 50px;
+        position: relative;
+      }
+      th {
+        text-align: center;
+      }
+      .table-body td:last-child  {
+        display: none;
+      }
+      tr, td {
+        margin-right: 20px;
+        min-width: 80px;
+        position: relative;
+      }
+      .clickable {
+        cursor: pointer;
+      }
+
+	.table-striped>tbody>tr:nth-child(odd)>td, 
+	.table-striped>tbody>tr:nth-child(odd)>th {
+	 }
+	 .table-striped>tbody>tr:nth-child(even)>td, 
+	.table-striped>tbody>tr:nth-child(even)>th {
+	 }
+	.table-striped tbody tr.highlight td { 
+    	background-color: rgba(212,106,106,0.7);
+	 }
+    @media screen and (max-width: 455px) {
+      .e200width {
+        width: 21%;
+        height: 65px;
+        padding-top: 40px;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+      .container input {
+        width: 24vw;
+        padding-left: 25px;
+        height: 106px;
+      }
+    }
+    @media screen and (max-width: 380px) {
+      .e200width {
+        width: 19%;
+        height: 65px;
+        padding-top: 40px;
+        padding-bottom: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+      .container input {
+        width: 22vw;
+        padding-left: 25px;
+        height: 126px;
+      }
+    }

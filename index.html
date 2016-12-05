@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Open+Sans" rel="stylesheet">
+    <script src="https://use.fontawesome.com/847d4f98dd.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    
+    <title>Summoners War 6 Star Calculator</title>
+    <meta name="description" content="A calculator tool to help players of Summoners War figure out how many monsters of a certain level they need in order to evolve."/>
+    <meta name="keywords" content="Summoners, Summoners war, Sky, Arena, Calculator, 6, Star, *, 6 Star, 6*, Calculator, Evolve, Tool"/>
+    <meta name="robots" content="index, follow" />
+    
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  </head>
+  <body ng-app="myApp" ng-controller="MainController" data-ng-init="start()">
+    <div id="top-nav" class="nav nav-bar">
+     <ul class="nav nav-bar" style="float: left;">
+      <li><a href="#home-anchor">TSV - Home</a></li>
+     </ul>
+     <ul class="nav nav-bar" style="float: right;">
+      <li><a href="#home-anchor">How It Works</a></li>
+      <li ng-click="exportData();"><a href="#">Export to Excel</a></li>
+     </ul>
+    </div>
+    <div class="jumbotron">
+     <h1>Dow 30 Total Shareholder Value Calculator</h1>
+     <br />
+     <h2>Including Comcast, Sprint, CenturyLink, At&t and Time Warner Cable</h2>
+    </div>
+    <div class="container">
+      <label>
+             <span class="e200width" ng-click="build1yrTable();">1 Year</span>
+              <span class="e200width" ng-click="build3yrTable();">3 Year</span>
+              <span class="e200width" ng-click="build5yrTable();">5 Year</span>
+            <span class="e200width" ng-click="swapNames();">Swap Names</span>
+        <br />
+        <h3 style="position: relative; left: 50px;">Compare Date</h3>
+             <input type="number" name="twoStars" ng-model="sMonth" required min="1" max="12">
+             <input type="number" name="twoStars" ng-model="sDay" required min="1" max="31">
+            <input type="number" name="twoStars" ng-model="sYear" required min="1985" max="2017">
+        <h3 style="position: relative; left: 50px;" ng-click="customTimeline();">Current Date</h3>
+             <input type="number" name="twoStars" ng-model="customMonth" required min="1" max="12">
+             <input type="number" name="twoStars" ng-model="customDay" required min="1" max="31">
+            <input type="number" name="twoStars" ng-model="customYear" required min="1985" max="2017">
+      </label>
+    </div>
+    <div class="table" id="exportable">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="Position" >Position</th>
+            <th class="Symbol clickable" ng-click="sortable(0)">Symbol</th>
+            <th class="Historic clickable" ng-click="sortable(1)">Historic Price</th>
+            <th class="Current clickable" ng-click="sortable(2)">Current Price</th>
+            <th class="Dividends clickable" ng-click="sortable(3)">Dividends</th>
+            <th class="Yield clickable" ng-click="sortable(4)">Yield</th>
+            <th class="Price clickable" ng-click="sortable(5)">Price Appreciation</th>
+            <th class="TSV clickable" ng-click="sortable(6)">TSV</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr ng-repeat="d in stockArray track by $index" ng-init="idy = $index">
+            <td>{{idy + 1}}</td>
+            <td ng-repeat="c in th track by $index" >{{d[$index]}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+
+    <!-- Modules -->
+    <script src="app.js"></script>
+
+    <!-- Controllers -->
+    <script src="MainController.js"></script>
+    
+    
+    <!-- file saving -->
+    <script src="FileSaver.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/3.3.5/js/tableexport.min.js"></script>-->
+
+  </body>
+  
+</html>

@@ -39,7 +39,7 @@
    .jumbotron{
      height: 62vh;
      min-height: 400px;
-     background: url(http://daniellchapman.github.io/shareholdervalue/images/jumbotron.png) no-repeat center center;
+     background: url(images/jumbotron.png) no-repeat center center;
      background-size: cover;
     }
     .jumbotron h1 {
@@ -74,7 +74,7 @@
       position: relative;
     }
     
-    
+
     .e200width {
       min-width: 125px;
       display: inline-block;
@@ -90,20 +90,12 @@
       font-family: 'Open Sans', sans-serif;
       font-size: 12px;
       padding-top: 22.5px;
+      border:1px solid lightblue;
     }
-    .container input {
-      width: 125px;
-      font-family: 'Open Sans', sans-serif;
-      vertical-align: top;
-      height: 70px;
-      margin-left: 20px;
-      border:1px solid black;
-      border-radius: 25px;
-      text-align: center;
-      color: white;
-      background: lightblue;
+    .calculate-custom-button {
+      background: white;
+      color: black;
     }
-
     .container {
       padding-top: 20px;
       width: 100%;
@@ -111,26 +103,23 @@
       margin: 0 auto;
       position: relative;
       background-color: rgba(245,249,229,.06);
-      padding-bottom: 50px;
-      margin-bottom: -50px;
+      padding-bottom: 20px;
+      margin-bottom: -70px;
+    }
+    .container input {
+      width: 125px;
+      font-family: 'Open Sans', sans-serif;
+      vertical-align: top;
+      height: 70px;
+      margin-left: 20px;
+      border:1px solid lightblue;
+      border-radius: 25px;
+      text-align: center;
+      color: white;
+      background: lightblue;
     }
     @media screen and (max-width: 600px) {
-      .container {
-        width: 99%;
-      }
-      .e200width {
-        width: 22%;
-        height: 65px;
-        padding-top: 40px;
-        text-align: center;
-        padding-left: 5px;
-        padding-right: 5px;
-      }
-      .container input {
-        width: 24vw;
-        padding-left: 25px;
-        height: 106px;
-      }
+
       .special-height {
         height: 84px;
         padding-top: 20px;
@@ -150,6 +139,7 @@
       }
       th {
         text-align: center;
+        
       }
       .table-body td:last-child  {
         display: none;
@@ -168,36 +158,30 @@
 	 }
 	 .table-striped>tbody>tr:nth-child(even)>td, 
 	.table-striped>tbody>tr:nth-child(even)>th {
+   background-color: lightblue;
 	 }
 	.table-striped tbody tr.highlight td { 
     	background-color: rgba(212,106,106,0.7);
 	 }
-    @media screen and (max-width: 455px) {
-      .e200width {
-        width: 21%;
-        height: 65px;
-        padding-top: 40px;
-        padding-left: 5px;
-        padding-right: 5px;
-      }
-      .container input {
-        width: 24vw;
-        padding-left: 25px;
-        height: 106px;
+    @media screen and (max-width: 700px) {
+      td:nth-child(5), td:nth-child(6), th:nth-child(5), th:nth-child(6) {
+        display: none;
       }
     }
-    @media screen and (max-width: 380px) {
-      .e200width {
-        width: 19%;
-        height: 65px;
-        padding-top: 40px;
-        padding-bottom: 20px;
-        padding-left: 5px;
-        padding-right: 5px;
+    @media screen and (max-width: 522px) {
+      td:nth-child(3), td:nth-child(7), th:nth-child(3), th:nth-child(7) {
+        display: none;
       }
       .container input {
-        width: 22vw;
-        padding-left: 25px;
-        height: 126px;
+        width: 75px;
+        font-family: 'Open Sans', sans-serif;
+        vertical-align: top;
+        height: 70px;
+        margin-left: 20px;
+        border:1px solid lightblue;
+        border-radius: 25px;
+        text-align: center;
+        color: white;
+        background: lightblue;
       }
     }

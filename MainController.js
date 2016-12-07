@@ -1,6 +1,6 @@
 app.controller('MainController', ['$scope', function($scope) {
-  $scope.title = 'Do you have a 5* ready to go?';
-  $scope.promo = 'promo code';
+  //MAKE NEW BUTTON FOR CUSTOM DATES
+  //PRETTYFY.
   $scope.th = ['Position', 'Symbol', 'Historic Price', 'Current Price', 'Dividends', 'Yield', 'Price Appreciation', 'TSV'];
   //min level, max level
   var d = new Date();
@@ -180,7 +180,7 @@ app.controller('MainController', ['$scope', function($scope) {
       })
         .fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ", " + error;
-        alert("failure dividens" + " " + err);
+        alert("Dividend Failure, please try again later as there might be an API issue");
     });
 }
   
@@ -213,7 +213,7 @@ app.controller('MainController', ['$scope', function($scope) {
         })
             .fail(function (jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
-                $("#result").text('Request failed: ' + err);
+            alert("Failed to grab Historical Price. Please try again later as the API may be having issues");  
         });
     
   }
@@ -238,7 +238,7 @@ app.controller('MainController', ['$scope', function($scope) {
         })
             .fail(function (jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
-                $("#result").text('Request failed: ' + err);
+            alert("Failed to grab Recent Price. Please try again later as the API may be having issues");  
         });
   }
   
@@ -271,7 +271,7 @@ app.controller('MainController', ['$scope', function($scope) {
       })
       .fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ", " + error;
-        alert("fail current price");  
+        alert("Failed to grab Current Price. Please try again later as the API may be having issues");  
       //$("#result").text('Request failed: ' + err);
       });
   }
@@ -496,6 +496,11 @@ app.controller('MainController', ['$scope', function($scope) {
     $scope.month = d.getMonth()+1;
     $scope.year = d.getFullYear();
     $scope.day = d.getDate();
+    
+    if (d.getHours() <= 9 && d.getMinutes() <= 30) {
+      $scope.day--;
+      $scope.custom = true;
+    }
     
     var temp = $scope.calculateDay($scope.year, $scope.month, $scope.day);
     $scope.year = temp[0];

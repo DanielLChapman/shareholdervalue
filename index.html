@@ -4,9 +4,9 @@
     <script src="https://use.fontawesome.com/847d4f98dd.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
     
-    <title>Summoners War 6 Star Calculator</title>
-    <meta name="description" content="A calculator tool to help players of Summoners War figure out how many monsters of a certain level they need in order to evolve."/>
-    <meta name="keywords" content="Summoners, Summoners war, Sky, Arena, Calculator, 6, Star, *, 6 Star, 6*, Calculator, Evolve, Tool"/>
+    <title>Total Shareholder Value</title>
+    <meta name="description" content="A calculator tool to determine the total share holder value of the dow 30 + a few extra stocks"/>
+    <meta name="keywords" content="Stocks, Total, Share, Shareholder, Value, Dow 30, Verizon, Tmobile, Sprint, UNH"/>
     <meta name="robots" content="index, follow" />
     
     <link rel="stylesheet" type="text/css" href="main.css">
@@ -23,7 +23,6 @@
       <li><a href="#home-anchor">TSV - Home</a></li>
      </ul>
      <ul class="nav nav-bar" style="float: right;">
-      <li><a href="#home-anchor">How It Works</a></li>
       <li ng-click="exportData();"><a href="#">Export to Excel</a></li>
      </ul>
     </div>
@@ -33,21 +32,27 @@
      <h2>Including Comcast, Sprint, CenturyLink, At&t and Time Warner Cable</h2>
     </div>
     <div class="container">
-      <label>
-             <span class="e200width" ng-click="build1yrTable();">1 Year</span>
-              <span class="e200width" ng-click="build3yrTable();">3 Year</span>
-              <span class="e200width" ng-click="build5yrTable();">5 Year</span>
-            <span class="e200width" ng-click="swapNames();">Swap Names</span>
-        <br />
+      <h3 style="position: relative; left: 50px;"></h3>
+      <span class="e200width" ng-click="build1yrTable();">1 Year</span>
+      <span class="e200width" ng-click="build3yrTable();">3 Year</span>
+      <span class="e200width" ng-click="build5yrTable();">5 Year</span>
+      <span class="e200width" ng-hide="appear" ng-click="appear=true">Custom Date Range</span>
+      <span class="e200width" ng-show="appear" ng-click="appear=false">Close</span>
+      <span class="e200width" ng-click="swapNames();">Swap Names</span>
+      <br />
+      <br/>
+      <span class="custom-date-box" ng-show="appear">
         <h3 style="position: relative; left: 50px;">Compare Date</h3>
-             <input type="number" name="twoStars" ng-model="sMonth" required min="1" max="12">
-             <input type="number" name="twoStars" ng-model="sDay" required min="1" max="31">
-            <input type="number" name="twoStars" ng-model="sYear" required min="1985" max="2017">
-        <h3 style="position: relative; left: 50px;" ng-click="customTimeline();">Current Date</h3>
-             <input type="number" name="twoStars" ng-model="customMonth" required min="1" max="12">
-             <input type="number" name="twoStars" ng-model="customDay" required min="1" max="31">
-            <input type="number" name="twoStars" ng-model="customYear" required min="1985" max="2017">
-      </label>
+        <input type="number" name="twoStars" ng-model="sMonth" required min="1" max="12">
+        <input type="number" name="twoStars" ng-model="sDay" required min="1" max="31">
+        <input type="number" name="twoStars" ng-model="sYear" required min="1985" max="2017">
+        <h3 style="position: relative; left: 50px;" >Current Date</h3>
+        <input type="number" name="twoStars" ng-model="customMonth" required min="1" max="12">
+        <input type="number" name="twoStars" ng-model="customDay" required min="1" max="31">
+        <input type="number" name="twoStars" ng-model="customYear" required min="1985" max="2017">
+        <br />
+        <span class="e200width calculate-custom-button" ng-click="customTimeline();" style="margin-top: 30px; margin-left: 50px;">Calculate</span>
+      </span>
     </div>
     <div class="table" id="exportable">
       <table class="table table-striped">

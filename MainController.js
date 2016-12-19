@@ -497,11 +497,6 @@ app.controller('MainController', ['$scope', function($scope) {
     $scope.year = d.getFullYear();
     $scope.day = d.getDate();
     
-    if (d.getHours() <= 9 && d.getMinutes() <= 30 && d.getDay() != 6 && d.getDay() != 0) {
-      $scope.day--;
-      $scope.custom = true;
-    }
-    
     var temp = $scope.calculateDay($scope.year, $scope.month, $scope.day);
     $scope.year = temp[0];
     $scope.month = temp[1];

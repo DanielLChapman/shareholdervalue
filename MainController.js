@@ -62,12 +62,8 @@ app.controller('MainController', ['$scope', function($scope) {
     }
   }
   //Sorting
-  /*
+  
   function selectionSort(items, selectVariable) {
-    if (selectVariable == 0) {
-        items[0].sort();
-    }
-    else {
         var length = items.length;
 
         for (var i = 0; i < length-1; i++) { //Number of passes
@@ -84,11 +80,10 @@ app.controller('MainController', ['$scope', function($scope) {
             items[min] = tmp;
           }
         }
-    }
     
     return items;
   }
-  */
+  
   //http://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
   //Better sort function
   function sortByColumn(a, colIndex){
@@ -139,7 +134,7 @@ app.controller('MainController', ['$scope', function($scope) {
       $scope.stockArray[i][5] = PA.toFixed(2);
       $scope.stockArray[i][6] = TSV.toFixed(2);
      }
-     $scope.stockArray = sortByColumn($scope.stockArray, 6);
+     $scope.stockArray = selectionSort($scope.stockArray, 6);
      $scope.stockArray = $scope.stockArray.reverse();
      $scope.$apply();
      var temp = "";
@@ -332,7 +327,7 @@ app.controller('MainController', ['$scope', function($scope) {
     }
     //dividens
     $scope.dividendURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20("+intermediate+")%20and%20startDate%20%3D%20%22" + $scope.sYear + "-"+ $scope.sMonth +"-"+$scope.sDay +"%22%20and%20endDate%20%3D%20%22" + ($scope.year) + "-"+ $scope.month + "-"+$scope.day+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
-    
+    console.log($scope.historicURL);
     //callingfunctions
     if ($scope.custom && !customDateToday()) {
       getCustomStock();
@@ -378,6 +373,7 @@ app.controller('MainController', ['$scope', function($scope) {
     $scope.stockArray[31][0] = "MCD";$scope.stockArray[31][7] = "McDonald's Corp.";
     //$scope.stockArray[32][0] = "TWC";$scope.stockArray[32][7] = "Time Warner Cable Inc.";
     $scope.stockArray[32][0] = "NKE";$scope.stockArray[32][7] = "NIKE, Inc.";
+    $scope.stockArray[33][0] = "CHTR";$scope.stockArray[33][7] = "Charter Communications";
     $scope.swappedNames = false;
     $scope.th[1] = 'Symbol';
     buildURLS();
@@ -565,7 +561,7 @@ app.controller('MainController', ['$scope', function($scope) {
   }
   $scope.customTimeline = function() {
     $scope.custom = true;
-    for (var i = 0; i < 33; i++) {
+    for (var i = 0; i < 34; i++) {
       $scope.stockArray[i] = [0,0,0,0, 0, 0, 0, ""];
     }
     //Making sure the custom day isnt a weekend or holiday
@@ -636,7 +632,7 @@ app.controller('MainController', ['$scope', function($scope) {
   
   $scope.start = function() {
     //initialize the new $scope.stockArray
-    for (var i = 0; i < 33; i++) {
+    for (var i = 0; i < 34; i++) {
       $scope.stockArray[i] = [0,0,0,0, 0, 0, 0, ""];
     }
     

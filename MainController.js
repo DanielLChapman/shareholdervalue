@@ -62,38 +62,63 @@ app.controller('MainController', ['$scope', function($scope) {
     }
   }
   //Sorting
+  /*
   function selectionSort(items, selectVariable) {
-    var length = items.length;
+    if (selectVariable == 0) {
+        items[0].sort();
+    }
+    else {
+        var length = items.length;
 
-    for (var i = 0; i < length-1; i++) { //Number of passes
-      var min = i; //min holds the current minimum number position for each pass; i holds the Initial min number
-      for (var j = i+1; j < length; j++) { //Note that j = i + 1 as we only need to go through unsorted array
-        if(parseFloat(items[j][selectVariable]) < parseFloat(items[min][selectVariable])) { //Compare the numbers
-          min = j; //Change the current min number position if a smaller num is found
+        for (var i = 0; i < length-1; i++) { //Number of passes
+          var min = i; //min holds the current minimum number position for each pass; i holds the Initial min number
+          for (var j = i+1; j < length; j++) { //Note that j = i + 1 as we only need to go through unsorted array
+            if(parseFloat(items[j][selectVariable]) < parseFloat(items[min][selectVariable])) { //Compare the numbers
+              min = j; //Change the current min number position if a smaller num is found
+            }
+          }
+          if(min != i) { //After each pass, if the current min num != initial min num, exchange the position.
+            //Swap the numbers
+            var tmp = items[i];
+            items[i] = items[min];
+            items[min] = tmp;
+          }
         }
-      }
-      if(min != i) { //After each pass, if the current min num != initial min num, exchange the position.
-        //Swap the numbers
-        var tmp = items[i];
-        items[i] = items[min];
-        items[min] = tmp;
-      }
     }
     
     return items;
   }
+  */
+  //http://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
+  //Better sort function
+  function sortByColumn(a, colIndex){
+
+        a.sort(sortFunction);
+
+        function sortFunction(a, b) {
+            if (a[colIndex] === b[colIndex]) {
+                return 0;
+            }
+            else {
+                return (a[colIndex] < b[colIndex]) ? -1 : 1;
+            }
+        }
+
+        return a;
+    }
+
   
   $scope.sorted =  [false, false, false, false, false, false, true];
   
   $scope.sortable = function(pointe) {
     if ($scope.sorted[pointe]) {
-      $scope.stockArray = selectionSort($scope.stockArray, pointe);
+      $scope.stockArray = sortByColumn($scope.stockArray, pointe);
       $scope.stockArray = $scope.stockArray.reverse();
       $scope.$apply();
       $scope.sorted[pointe] = false;
     }
     else {
-      $scope.stockArray = selectionSort($scope.stockArray, pointe);
+      $scope.stockArray = sortByColumn($scope.stockArray, pointe);
       $scope.$apply();
       $scope.sorted[pointe] = true;
     }

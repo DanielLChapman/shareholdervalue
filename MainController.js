@@ -139,7 +139,7 @@ app.controller('MainController', ['$scope', function($scope) {
       $scope.stockArray[i][5] = PA.toFixed(2);
       $scope.stockArray[i][6] = TSV.toFixed(2);
      }
-     $scope.stockArray = selectionSort($scope.stockArray, 6);
+     $scope.stockArray = sortByColumn($scope.stockArray, 6);
      $scope.stockArray = $scope.stockArray.reverse();
      $scope.$apply();
      var temp = "";

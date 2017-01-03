@@ -326,8 +326,10 @@ app.controller('MainController', ['$scope', function($scope) {
     
     }
     //dividens
-    $scope.dividendURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20("+intermediate+")%20and%20startDate%20%3D%20%22" + $scope.sYear + "-"+ $scope.sMonth +"-"+$scope.sDay +"%22%20and%20endDate%20%3D%20%22" + ($scope.year) + "-"+ $scope.month + "-"+$scope.day+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
-    console.log($scope.historicURL);
+    $scope.dividendURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20("+intermediate+")%20and%20startDate%20%3D%20%22" + $scope.sYear + "-"+ $scope.sMonth +"-"+$scope.sDay +"%22%20and%20endDate%20%3D%20%22" + ($scope.year) + "-"+ $scope.month + "-"+$scope.day+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
+      
+      
+    console.log($scope.dividendURL);
     //callingfunctions
     if ($scope.custom && !customDateToday()) {
       getCustomStock();

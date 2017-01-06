@@ -103,17 +103,17 @@ app.controller('MainController', ['$scope', function($scope) {
   $scope.sorted =  [false, false, false, false, false, false, true];
   
   $scope.sortable = function(pointe) {
-    if ($scope.sorted[pointe]) {
-      $scope.stockArray = selectionSort($scope.stockArray, pointe);
-      $scope.stockArray = $scope.stockArray.reverse();
-      $scope.$apply();
-      $scope.sorted[pointe] = false;
-    }
-    else {
-      $scope.stockArray = selectionSort($scope.stockArray, pointe);
-      $scope.$apply();
-      $scope.sorted[pointe] = true;
-    }
+        if ($scope.sorted[pointe]) {
+          $scope.stockArray = (pointe != 0)? selectionSort($scope.stockArray, pointe) : sortByColumn($scope.stockArray, pointe);
+          $scope.stockArray = $scope.stockArray.reverse();
+          $scope.$apply();
+          $scope.sorted[pointe] = false;
+        }
+        else {
+          $scope.stockArray = (pointe != 0)? selectionSort($scope.stockArray, pointe) : sortByColumn($scope.stockArray, pointe);
+          $scope.$apply();
+          $scope.sorted[pointe] = true;
+        }
   } 
 
   function output() {

@@ -5,27 +5,23 @@ app.controller('MainController', ['$scope', function($scope) {
   //min level, max level
   var d = new Date();
   //current date
+    
+    //Month, Day, Year
   $scope.date = [d.getMonth()+1, d.getDate(), d.getFullYear()];
-  $scope.month = d.getMonth()+1;
-  $scope.year = d.getFullYear();
-  $scope.day = d.getDate();
-  
+
   $scope.yearSubtract = 3;
   
-  //historic search day
-  $scope.sYear = $scope.year-3;
-  $scope.sMonth = 12;
-  $scope.sDay = 31;
+  $scope.sDate = [12,31,$scope.date[2]-3];
+
   
   //temp day, used in calculate day calculations
-  $scope.tempDay = 1;
-  $scope.tempMonth = 1;
-  $scope.tempYear = 2016;
+    //Month, Day, Year
+  $scope.tempDate = [1,1,2017];
   
   //Custom Date Range, starts off as custom date
-  $scope.customYear= $scope.year;
-  $scope.customMonth = $scope.month;
-  $scope.customDay = $scope.day;
+    //Month, Day, Year
+  $scope.customDate = [$scope.date[0], $scope.date[1], $scope.date[2]];
+
   
   $scope.historicURL = "";
   $scope.currentURL = "";
@@ -152,17 +148,17 @@ app.controller('MainController', ['$scope', function($scope) {
   
   function inDateRange(tDate) {
     //for calculating current day or custom day
-    var dateDay = $scope.day;
-    var dateMonth = $scope.month; 
-    var dateYear = $scope.year;
+    var dateDay = $scope.date[1];
+    var dateMonth = $scope.date[0]; 
+    var dateYear = $scope.date[2];
     if ($scope.custom) {
-      dateDay = $scope.customDay;
-      dateMonth = $scope.customMonth; 
-      dateYear = $scope.customYear;
+      dateDay = $scope.customDate[1];
+      dateMonth = $scope.customDate[0]; 
+      dateYear = $scope.customDate[2];
     }
     var tempDate = tDate.split("-");
     //sDates dont change
-    if (tempDate[2] < $scope.sDay && tempDate[1] <= $scope.sMonth && tempDate[0] <= $scope.sYear) {
+    if (tempDate[2] < $scope.sDate[1] && tempDate[1] <= $scope.sDate[0] && tempDate[0] <= $scope.sDate[2]) {
         return false;
     }
     else if (tempDate[2] > dateDay && tempDate[1] >= dateMonth && tempDate[0] >= dateYear) {
@@ -213,7 +209,6 @@ app.controller('MainController', ['$scope', function($scope) {
      }*/
       
         var url = $scope.historicURL;
-        console.log("H: " + url);
         $.getJSON(url)
             .done(function (data) {
             var Symbol, count = 0;
@@ -240,7 +235,6 @@ app.controller('MainController', ['$scope', function($scope) {
   }
   function getCustomStock() {
     url = $scope.customURL;
-      console.log(url);
       $.getJSON(url)
           .done(function (data) {
             var Symbol, count = 0;
@@ -297,7 +291,7 @@ app.controller('MainController', ['$scope', function($scope) {
       });
   }
   var customDateToday = function() {
-    if ($scope.year == $scope.customYear && $scope.month == $scope.customMonth && $scope.day == $scope.customDay) {
+    if ($scope.date[2] == $scope.customDate[2] && $scope.date[0] == $scope.customDate[0] && $scope.date[1] == $scope.customDate[1]) {
       return true;
     }
     return false;
@@ -319,18 +313,17 @@ app.controller('MainController', ['$scope', function($scope) {
     $scope.currentURL += intermediate + ")&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
     
     //Historic
-    $scope.historicURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(" + intermediate + ")%20and%20startDate%20%3D%20%22"+$scope.sYear+"-"+$scope.sMonth+"-"+$scope.sDay+"%22%20and%20endDate%20%3D%20%22"+$scope.sYear+"-"+$scope.sMonth+"-"+$scope.sDay+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
+    $scope.historicURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(" + intermediate + ")%20and%20startDate%20%3D%20%22"+$scope.sDate[2]+"-"+$scope.sDate[0]+"-"+$scope.sDate[1]+"%22%20and%20endDate%20%3D%20%22"+$scope.sDate[2]+"-"+$scope.sDate[0]+"-"+$scope.sDate[1]+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
 
     if ($scope.custom) {
     
-      $scope.customURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20in%20(" + intermediate + ")%20and%20startDate%20%3D%20%22"+$scope.customYear+"-"+$scope.customMonth+"-"+$scope.customDay+"%22%20and%20endDate%20%3D%20%22"+$scope.customYear+"-"+$scope.customMonth+"-"+$scope.customDay+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
+      $scope.customURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20in%20(" + intermediate + ")%20and%20startDate%20%3D%20%22"+$scope.customDate[2]+"-"+$scope.customDate[0]+"-"+$scope.customDate[1]+"%22%20and%20endDate%20%3D%20%22"+$scope.customDate[2]+"-"+$scope.customDate[0]+"-"+$scope.customDate[1]+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
     
     }
     //dividens
-    $scope.dividendURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20("+intermediate+")%20and%20startDate%20%3D%20%22" + $scope.sYear + "-"+ $scope.sMonth +"-"+$scope.sDay +"%22%20and%20endDate%20%3D%20%22" + ($scope.year) + "-"+ parseInt($scope.month)+1 + "-"+$scope.day+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
+    $scope.dividendURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20("+intermediate+")%20and%20startDate%20%3D%20%22" + $scope.sDate[2] + "-"+ $scope.sDate[0] +"-"+$scope.sDate[1] +"%22%20and%20endDate%20%3D%20%22" + ($scope.date[2]) + "-"+ parseInt($scope.date[0])+1 + "-"+$scope.date[1]+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
       
       
-    console.log($scope.dividendURL);
     //callingfunctions
     if ($scope.custom && !customDateToday()) {
       getCustomStock();
@@ -394,31 +387,31 @@ app.controller('MainController', ['$scope', function($scope) {
     return false;
   }
   $scope.rewindDay = function() {
-    if ($scope.tempDay <= 0) {
-      if ($scope.tempMonth == 1) {
-        $scope.tempMonth = 12;
-        $scope.tempYear = $scope.tempYear-1;
-        $scope.tempDay = 31;
+    if ($scope.tempDate[1] <= 0) {
+      if ($scope.tempDate[0] == 1) {
+        $scope.tempDate[0] = 12;
+        $scope.tempDate[2] = $scope.tempDate[2]-1;
+        $scope.tempDate[1] = 31;
       }
       else {
-        $scope.tempMonth -= 1;
-        if ($scope.contains([1,3,5,7,8,10,12], $scope.tempMonth)) {
-          $scope.tempDay = 31;    
+        $scope.tempDate[0] -= 1;
+        if ($scope.contains([1,3,5,7,8,10,12], $scope.tempDate[0])) {
+          $scope.tempDate[1] = 31;    
         }
-        else if ($scope.tempMonth == 2) {
-          if ($scope.tempYear%4 == 0) {
-            $scope.tempDay = 29;
+        else if ($scope.tempDate[0] == 2) {
+          if ($scope.tempDate[2]%4 == 0) {
+            $scope.tempDate[1] = 29;
           }
           else {
-            $scope.tempDay = 28;
+            $scope.tempDate[1] = 28;
           }
         }
         else {
-          $scope.tempDay = 30;
+          $scope.tempDate[1] = 30;
           }
         }
       }
-    $scope.calculateDay($scope.tempYear, $scope.tempMonth, $scope.tempDay);
+    $scope.calculateDay($scope.tempDate[2], $scope.tempDate[0], $scope.tempDate[1]);
   }
   
   $scope.calculateDay = function(fyear, fmonth, fday) {
@@ -428,14 +421,14 @@ app.controller('MainController', ['$scope', function($scope) {
     */
     // Modifying https://www.softcomplex.com/forum/viewthread_2814/
     // check simple dates (month/date - no leading zeroes)
-    $scope.tempYear = fyear;
-    $scope.tempMonth = fmonth;
-    $scope.tempDay = fday;
+    $scope.tempDate[2] = fyear;
+    $scope.tempDate[0] = fmonth;
+    $scope.tempDate[1] = fday;
     
     var dt_date = new Date();
-    dt_date.setFullYear($scope.tempYear);
-    dt_date.setMonth($scope.tempMonth-1);
-    dt_date.setDate($scope.tempDay);
+    dt_date.setFullYear($scope.tempDate[2]);
+    dt_date.setMonth($scope.tempDate[0]-1);
+    dt_date.setDate($scope.tempDate[1]);
     
     
      var n_date = dt_date.getDate();
@@ -446,10 +439,10 @@ app.controller('MainController', ['$scope', function($scope) {
     if(dt_date.getDay() == 6 || dt_date.getDay() == 0) {
       switch(dt_date.getDay()) {
         case 6:
-          $scope.tempDay -= 1;
+          $scope.tempDate[1] -= 1;
           break;
         case 0: 
-          $scope.tempDay -= 2;
+          $scope.tempDate[1] -= 2;
           break;
       }
       $scope.rewindDay();
@@ -462,7 +455,7 @@ app.controller('MainController', ['$scope', function($scope) {
       || s_date1 == '12/25' // Christmas Day
 
      ) {
-       $scope.tempDay -= 1;
+       $scope.tempDate[1] -= 1;
        $scope.rewindDay();
      }
 
@@ -478,35 +471,35 @@ app.controller('MainController', ['$scope', function($scope) {
       || s_date2 == '9/1/1'  // Labor Day, first Monday in September
       || s_date2 == '11/4/4' // Thanksgiving Day, fourth Thursday in November
      ) {
-       $scope.tempDay -= 1;
+       $scope.tempDate[1] -= 1;
        $scope.rewindDay();
      }
-    return [$scope.tempYear, $scope.tempMonth, $scope.tempDay];
+    return [$scope.tempDate[2], $scope.tempDate[0], $scope.tempDate[1]];
   }
   
 
   var swapCustomDays = function() {
-    var temp = [$scope.sYear, $scope.sMonth, $scope.sDay];
-      $scope.sYear = $scope.customYear;
-      $scope.sMonth = $scope.customMonth;
-      $scope.sDay = $scope.customDay;
-      $scope.customYear = temp[0];
-      $scope.customMonth = temp[1];
-      $scope.customDay = temp[2];
+    var temp = [$scope.sDate[2], $scope.sDate[0], $scope.sDate[1]];
+      $scope.sDate[2] = $scope.customDate[2];
+      $scope.sDate[0] = $scope.customDate[0];
+      $scope.sDate[1] = $scope.customDate[1];
+      $scope.customDate[2] = temp[0];
+      $scope.customDate[0] = temp[1];
+      $scope.customDate[1] = temp[2];
   }
   
   var futureDate = function(fYear, fMonth, fDay) {
-    if ($scope.year < fYear) {
+    if ($scope.date[2] < fYear) {
       return true;
       
     }
-    else if ($scope.year == fYear) {
-      if ($scope.month < fMonth) {
+    else if ($scope.date[2] == fYear) {
+      if ($scope.date[0] < fMonth) {
         return true;
         
       }
-      else if ($scope.month == fMonth) {
-        if ($scope.day < fDay) {
+      else if ($scope.date[0] == fMonth) {
+        if ($scope.date[1] < fDay) {
           return true;
         }
       }
@@ -517,29 +510,29 @@ app.controller('MainController', ['$scope', function($scope) {
   
   var currentDay = function() {
     //Get today
-    $scope.month = d.getMonth()+1;
-    $scope.year = d.getFullYear();
-    $scope.day = d.getDate();
+    $scope.date[0] = d.getMonth()+1;
+    $scope.date[2] = d.getFullYear();
+    $scope.date[1] = d.getDate();
     
-    var temp = $scope.calculateDay($scope.year, $scope.month, $scope.day);
-    $scope.year = temp[0];
-    $scope.month = temp[1];
-    $scope.day = temp[2];
+    var temp = $scope.calculateDay($scope.date[2], $scope.date[0], $scope.date[1]);
+    $scope.date[2] = temp[0];
+    $scope.date[0] = temp[1];
+    $scope.date[1] = temp[2];
     
     //Empty out the array
     for (var i = 0; i < 34; i++) {
       $scope.stockArray[i] = [0,0,0,0, 0, 0, 0, ""];
     }
     //Get the past date
-    $scope.sYear = $scope.year-$scope.yearSubtract;
-    $scope.sMonth = 12;
-    $scope.sDay = 31;
+    $scope.sDate[2] = $scope.date[2]-$scope.yearSubtract;
+    $scope.sDate[0] = 12;
+    $scope.sDate[1] = 31;
     
     //Make sure its legal
-    var temp = $scope.calculateDay($scope.sYear, $scope.sMonth, $scope.sDay);
-    $scope.sYear = temp[0];
-    $scope.sMonth = temp[1];
-    $scope.sDay = temp[2];
+    var temp = $scope.calculateDay($scope.sDate[2], $scope.sDate[0], $scope.sDate[1]);
+    $scope.sDate[2] = temp[0];
+    $scope.sDate[0] = temp[1];
+    $scope.sDate[1] = temp[2];
   }
   
   $scope.build1yrTable = function() {
@@ -568,55 +561,55 @@ app.controller('MainController', ['$scope', function($scope) {
       $scope.stockArray[i] = [0,0,0,0, 0, 0, 0, ""];
     }
     //Making sure the custom day isnt a weekend or holiday
-    var temp = $scope.calculateDay($scope.customYear, $scope.customMonth, $scope.customDay);
-    $scope.customYear = temp[0];
-    $scope.customMonth = temp[1];
-    $scope.customDay = temp[2];
+    var temp = $scope.calculateDay($scope.customDate[2], $scope.customDate[0], $scope.customDate[1]);
+    $scope.customDate[2] = temp[0];
+    $scope.customDate[0] = temp[1];
+    $scope.customDate[1] = temp[2];
     
-    if(futureDate($scope.sYear, $scope.sMonth, $scope.sDay)) {
+    if(futureDate($scope.sDate[2], $scope.sDate[0], $scope.sDate[1])) {
       alert("Cant use a future date for your past date, correcting date to a past date");
       //Get the past date
-      $scope.sYear = $scope.year-3;
-      $scope.sMonth = 12;
-      $scope.sDay = 31;
+      $scope.sDate[2] = $scope.date[2]-3;
+      $scope.sDate[0] = 12;
+      $scope.sDate[1] = 31;
 
-      var temp = $scope.calculateDay($scope.sYear, $scope.sMonth, $scope.sDay);
-      $scope.sYear = temp[0];
-      $scope.sMonth = temp[1];
-      $scope.sDay = temp[2];
+      var temp = $scope.calculateDay($scope.sDate[2], $scope.sDate[0], $scope.sDate[1]);
+      $scope.sDate[2] = temp[0];
+      $scope.sDate[0] = temp[1];
+      $scope.sDate[1] = temp[2];
     }
     
-    if(futureDate($scope.customYear, $scope.customMonth, $scope.customDay)) {
+    if(futureDate($scope.customDate[2], $scope.customDate[0], $scope.customDate[1])) {
       alert("Cant use a future date, correcting date to current date");
-      var temp = $scope.calculateDay($scope.year, $scope.month, $scope.day);
-      $scope.customYear = temp[0];
-      $scope.customMonth = temp[1];
-      $scope.customDay = temp[2];
+      var temp = $scope.calculateDay($scope.date[2], $scope.date[0], $scope.date[1]);
+      $scope.customDate[2] = temp[0];
+      $scope.customDate[0] = temp[1];
+      $scope.customDate[1] = temp[2];
     }
     
       //Make sure old day is also legal
-      var temp = $scope.calculateDay($scope.sYear, $scope.sMonth, $scope.sDay);
-      $scope.sYear = temp[0];
-      $scope.sMonth = temp[1];
-      $scope.sDay = temp[2];
+      var temp = $scope.calculateDay($scope.sDate[2], $scope.sDate[0], $scope.sDate[1]);
+      $scope.sDate[2] = temp[0];
+      $scope.sDate[0] = temp[1];
+      $scope.sDate[1] = temp[2];
 
       //if custom year is before sYear, swap
-      if ($scope.customYear < $scope.sYear) {
+      if ($scope.customDate[2] < $scope.sDate[2]) {
         swapCustomDays();
         buildNames();
       }
       //if they occur in the same year, check the months, then days
-      else if ($scope.customYear == $scope.sYear) {
-        if ($scope.customMonth < $scope.sMonth) {
+      else if ($scope.customDate[2] == $scope.sDate[2]) {
+        if ($scope.customDate[0] < $scope.sDate[0]) {
           swapCustomDays();
           buildNames();
         }
-        else if ($scope.customMonth == $scope.sMonth) {
-          if ($scope.customDay < $scope.sDay) {
+        else if ($scope.customDate[0] == $scope.sDate[0]) {
+          if ($scope.customDate[1] < $scope.sDate[1]) {
             swapCustomDays();
             buildNames();
           }
-          else if ($scope.customDay == $scope.sDay) {
+          else if ($scope.customDate[1] == $scope.sDate[1]) {
             alert("Days cant be the same");
           }
           else {
@@ -640,10 +633,10 @@ app.controller('MainController', ['$scope', function($scope) {
     }
     
     //make sure today is not a holiday or weekend
-    var temp = $scope.calculateDay($scope.year, $scope.month, $scope.day);
-    $scope.year = temp[0];
-    $scope.month = temp[1];
-    $scope.day = temp[2];
+    var temp = $scope.calculateDay($scope.date[2], $scope.date[0], $scope.date[1]);
+    $scope.date[2] = temp[0];
+    $scope.date[0] = temp[1];
+    $scope.date[1] = temp[2];
     
     $scope.build3yrTable();
   }

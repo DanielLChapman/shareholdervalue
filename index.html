@@ -44,13 +44,13 @@
       <br/>
       <span class="custom-date-box" ng-show="appear">
         <h3 style="position: relative; left: 50px;">Compare Date</h3>
-        <input type="number" name="twoStars" ng-model="sMonth" required min="1" max="12">
-        <input type="number" name="twoStars" ng-model="sDay" required min="1" max="31">
-        <input type="number" name="twoStars" ng-model="sYear" required min="1985" max="2017">
+        <input type="number" name="twoStars" ng-model="sDate[0]" required min="1" max="12">
+        <input type="number" name="twoStars" ng-model="sDate[1]" required min="1" max="31">
+        <input type="number" name="twoStars" ng-model="sDate[2]" required min="1985" max="2017">
         <h3 style="position: relative; left: 50px;" >Current Date</h3>
-        <input type="number" name="twoStars" ng-model="customMonth" required min="1" max="12">
-        <input type="number" name="twoStars" ng-model="customDay" required min="1" max="31">
-        <input type="number" name="twoStars" ng-model="customYear" required min="1985" max="2017">
+        <input type="number" name="twoStars" ng-model="customDate[0]" required min="1" max="12">
+        <input type="number" name="twoStars" ng-model="customDate[1]" required min="1" max="31">
+        <input type="number" name="twoStars" ng-model="customDate[2]" required min="1985" max="2017">
         <br />
         <span class="e200width calculate-custom-button" ng-click="customTimeline();" style="margin-top: 30px; margin-left: 50px;">Calculate</span>
       </span>

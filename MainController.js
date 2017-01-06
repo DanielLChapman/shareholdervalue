@@ -5,6 +5,7 @@ app.controller('MainController', ['$scope', function($scope) {
   //min level, max level
   var d = new Date();
   //current date
+  $scope.date = [d.getMonth()+1, d.getDate(), d.getFullYear()];
   $scope.month = d.getMonth()+1;
   $scope.year = d.getFullYear();
   $scope.day = d.getDate();
@@ -107,13 +108,13 @@ app.controller('MainController', ['$scope', function($scope) {
   
   $scope.sortable = function(pointe) {
     if ($scope.sorted[pointe]) {
-      $scope.stockArray = sortByColumn($scope.stockArray, pointe);
+      $scope.stockArray = selectionSort($scope.stockArray, pointe);
       $scope.stockArray = $scope.stockArray.reverse();
       $scope.$apply();
       $scope.sorted[pointe] = false;
     }
     else {
-      $scope.stockArray = sortByColumn($scope.stockArray, pointe);
+      $scope.stockArray = selectionSort($scope.stockArray, pointe);
       $scope.$apply();
       $scope.sorted[pointe] = true;
     }
@@ -127,9 +128,9 @@ app.controller('MainController', ['$scope', function($scope) {
       var Yield = $scope.stockArray[i][3]/BSP*100;
       var PA = (CSP - BSP)/BSP*100;
       var TSV = Yield + PA;
-      $scope.stockArray[i][1] = $scope.stockArray[i][1].toFixed(2);
-      $scope.stockArray[i][2] = $scope.stockArray[i][2].toFixed(2);
-      $scope.stockArray[i][3] = $scope.stockArray[i][3].toFixed(2);
+      $scope.stockArray[i][1] = parseFloat($scope.stockArray[i][1]).toFixed(2);
+      $scope.stockArray[i][2] = parseFloat($scope.stockArray[i][2]).toFixed(2);
+      $scope.stockArray[i][3] = parseFloat($scope.stockArray[i][3]).toFixed(2);
       $scope.stockArray[i][4] = Yield.toFixed(2);
       $scope.stockArray[i][5] = PA.toFixed(2);
       $scope.stockArray[i][6] = TSV.toFixed(2);
@@ -212,7 +213,7 @@ app.controller('MainController', ['$scope', function($scope) {
      }*/
       
         var url = $scope.historicURL;
-
+        console.log("H: " + url);
         $.getJSON(url)
             .done(function (data) {
             var Symbol, count = 0;
@@ -310,7 +311,7 @@ app.controller('MainController', ['$scope', function($scope) {
     for (var i = 0; i < $scope.stockArray.length-1; i++) {
       intermediate+=encodeURIComponent('"');
       intermediate+=$scope.stockArray[i][0];
-      intermediate+=encodeURIComponent('"')+"%2C";
+      intermediate+=encodeURIComponent('"')+"%2C%20";
     }
     intermediate += encodeURIComponent('"') + $scope.stockArray[$scope.stockArray.length-1][0]+ encodeURIComponent('"');
     
@@ -318,15 +319,15 @@ app.controller('MainController', ['$scope', function($scope) {
     $scope.currentURL += intermediate + ")&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
     
     //Historic
-    $scope.historicURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(" + intermediate + ")%20and%20startDate%20%3D%20%22"+$scope.sYear+"-"+$scope.sMonth+"-"+$scope.sDay+"%22%20and%20endDate%20%3D%20%22"+$scope.sYear+"-"+$scope.sMonth+"-"+$scope.sDay+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
+    $scope.historicURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(" + intermediate + ")%20and%20startDate%20%3D%20%22"+$scope.sYear+"-"+$scope.sMonth+"-"+$scope.sDay+"%22%20and%20endDate%20%3D%20%22"+$scope.sYear+"-"+$scope.sMonth+"-"+$scope.sDay+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
 
     if ($scope.custom) {
     
-      $scope.customURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(" + intermediate + ")%20and%20startDate%20%3D%20%22"+$scope.customYear+"-"+$scope.customMonth+"-"+$scope.customDay+"%22%20and%20endDate%20%3D%20%22"+$scope.customYear+"-"+$scope.customMonth+"-"+$scope.customDay+"%22&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
+      $scope.customURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20in%20(" + intermediate + ")%20and%20startDate%20%3D%20%22"+$scope.customYear+"-"+$scope.customMonth+"-"+$scope.customDay+"%22%20and%20endDate%20%3D%20%22"+$scope.customYear+"-"+$scope.customMonth+"-"+$scope.customDay+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
     
     }
     //dividens
-    $scope.dividendURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20("+intermediate+")%20and%20startDate%20%3D%20%22" + $scope.sYear + "-"+ $scope.sMonth +"-"+$scope.sDay +"%22%20and%20endDate%20%3D%20%22" + ($scope.year) + "-"+ $scope.month + "-"+$scope.day+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
+    $scope.dividendURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20("+intermediate+")%20and%20startDate%20%3D%20%22" + $scope.sYear + "-"+ $scope.sMonth +"-"+$scope.sDay +"%22%20and%20endDate%20%3D%20%22" + ($scope.year) + "-"+ parseInt($scope.month)+1 + "-"+$scope.day+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
       
       
     console.log($scope.dividendURL);
@@ -526,7 +527,7 @@ app.controller('MainController', ['$scope', function($scope) {
     $scope.day = temp[2];
     
     //Empty out the array
-    for (var i = 0; i < 33; i++) {
+    for (var i = 0; i < 34; i++) {
       $scope.stockArray[i] = [0,0,0,0, 0, 0, 0, ""];
     }
     //Get the past date

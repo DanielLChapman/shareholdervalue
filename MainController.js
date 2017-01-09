@@ -22,21 +22,23 @@ app.controller('MainController', ['$scope', function($scope) {
     //Month, Day, Year
   $scope.customDate = [$scope.date[0], $scope.date[1], $scope.date[2]];
 
-  
+  //Global URLS to pass from one function to the four
   $scope.historicURL = "";
   $scope.currentURL = "";
   $scope.dividendURL = "";
   
   $scope.customURL = "";
   
+  //initialize the stock array.
   $scope.stockArray = new Array(33);
   
+  //Booleans for functionality picking.
   $scope.swappedNames = false;
   
   $scope.custom = false;
   
   $scope.swapNames = function(){
-    //0 and 7
+    //0 and 7 (alphabatize), swaps the two columns in the stockArray for table display.
     if (!$scope.swappedNames) {
       for (var i = 0; i < $scope.stockArray.length; i++) {
         var temp = $scope.stockArray[i][0];
@@ -59,7 +61,7 @@ app.controller('MainController', ['$scope', function($scope) {
     }
   }
   //Sorting
-  
+  //Regular ole selection sort function based on the select column
   function selectionSort(items, selectVariable) {
         var length = items.length;
 
@@ -82,7 +84,7 @@ app.controller('MainController', ['$scope', function($scope) {
   }
   
   //http://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
-  //Better sort function
+  //Better sort function for letters.
   function sortByColumn(a, colIndex){
 
         a.sort(sortFunction);
@@ -99,9 +101,10 @@ app.controller('MainController', ['$scope', function($scope) {
         return a;
     }
 
-  
+  //Boolean to track which column is sorted.
   $scope.sorted =  [false, false, false, false, false, false, true];
   
+  //Sorts the functions based on the select column. Determines which sorting function to use. If the column is 0, it uses sortByColumn, else it uses Selectionsort
   $scope.sortable = function(pointe) {
         if ($scope.sorted[pointe]) {
           $scope.stockArray = (pointe != 0)? selectionSort($scope.stockArray, pointe) : sortByColumn($scope.stockArray, pointe);
@@ -116,6 +119,7 @@ app.controller('MainController', ['$scope', function($scope) {
         }
   } 
 
+  //Output function. First we calculate the TSV based on the columns.
   function output() {
 
      for (var i = 0; i < $scope.stockArray.length; i++) {
@@ -124,6 +128,7 @@ app.controller('MainController', ['$scope', function($scope) {
       var Yield = $scope.stockArray[i][3]/BSP*100;
       var PA = (CSP - BSP)/BSP*100;
       var TSV = Yield + PA;
+      //Take the columns and max the decimal points to two.
       $scope.stockArray[i][1] = parseFloat($scope.stockArray[i][1]).toFixed(2);
       $scope.stockArray[i][2] = parseFloat($scope.stockArray[i][2]).toFixed(2);
       $scope.stockArray[i][3] = parseFloat($scope.stockArray[i][3]).toFixed(2);
@@ -131,21 +136,17 @@ app.controller('MainController', ['$scope', function($scope) {
       $scope.stockArray[i][5] = PA.toFixed(2);
       $scope.stockArray[i][6] = TSV.toFixed(2);
      }
+     //Sort the array by the TSV. Then reverse it so it goes biggest to smallest.
      $scope.stockArray = selectionSort($scope.stockArray, 6);
      $scope.stockArray = $scope.stockArray.reverse();
      $scope.$apply();
-     var temp = "";
-     for (var i = 0; i < $scope.stockArray.length; i++) {
-      temp += "$scope.stockArray[" + i + "][1] = " + $scope.stockArray[i][1]+"; ";
-     }
-      
-    //console.log(temp);
 
      //$scope.stockArray.reverse();
      //updateFunction();
 
   }
   
+  //The Stock API for dividends sometimes gives all the dividends so this is more for insurance for data validation.
   function inDateRange(tDate) {
     //for calculating current day or custom day
     var dateDay = $scope.date[1];
@@ -169,7 +170,7 @@ app.controller('MainController', ['$scope', function($scope) {
     }
 }
   
-  //
+  //Uses jQuery api call to get dividend information from the dividendURL and then parses it.
   function getDividends() {
      for (var i = 0; i < $scope.stockArray.length; i++) {
         $scope.stockArray[i][3] = 0;
@@ -183,7 +184,7 @@ app.controller('MainController', ['$scope', function($scope) {
                 var tempSymbols = data.query.results.quote[Symbol].Symbol;
                 var dividends = data.query.results.quote[Symbol].Dividends;
                 var tempDate = data.query.results.quote[Symbol].Date;
-                //console.log(tempDate + " " + inDateRange(tempDate) + " " + sYear + " " + year);
+                  //Checks the date on the dividend, if its legal, find where it belongs and add it.
                 if (inDateRange(tempDate)) {
                   for (var x = 0; x < $scope.stockArray.length; x++) {
                     if (tempSymbols === $scope.stockArray[x][0]) {
@@ -203,6 +204,7 @@ app.controller('MainController', ['$scope', function($scope) {
   
   
   //Historic Price
+    //Uses api call to get the Historic price 
   function getHistoryPrice() {
      /*for (var i = 0; i < $scope.stockArray.length; i++) {
         $scope.stockArray[i][1] = 0;
@@ -216,6 +218,7 @@ app.controller('MainController', ['$scope', function($scope) {
          if(data.query.results.quote.hasOwnProperty(Symbol)) {
            var tempSymbols = data.query.results.quote[Symbol].Symbol;
             var dividends = data.query.results.quote[Symbol].Close;
+             //Sorts the data into appropriate spot in the stock array
               for (var x = 0; x < $scope.stockArray.length; x++) {
                 if (tempSymbols === $scope.stockArray[x][0]) {
                     $scope.stockArray[x][1]+=parseFloat(dividends);
@@ -233,6 +236,7 @@ app.controller('MainController', ['$scope', function($scope) {
         });
     
   }
+    //Gets the historic price of the stock that would be the "current stock"
   function getCustomStock() {
     url = $scope.customURL;
       $.getJSON(url)
@@ -242,6 +246,7 @@ app.controller('MainController', ['$scope', function($scope) {
             if(data.query.results.quote.hasOwnProperty(Symbol)) {
             var tempSymbols = data.query.results.quote[Symbol].Symbol;
             var dividends = data.query.results.quote[Symbol].Close;
+                //Sorts the data into appropriate spot in the stock array
               for (var x = 0; x < $scope.stockArray.length; x++) {
                 if (tempSymbols === $scope.stockArray[x][0]) {
                     $scope.stockArray[x][2]+=parseFloat(dividends);
@@ -257,7 +262,7 @@ app.controller('MainController', ['$scope', function($scope) {
         });
   }
   
-  //Current Stock Price
+  //Current Stock Price from the API call
   function getCurrentStock(urlToUse) {
      /*for (var i = 0; i < $scope.stockArray.length; i++) {
         $scope.stockArray[i][2] = 0;
@@ -270,11 +275,9 @@ app.controller('MainController', ['$scope', function($scope) {
             for(Symbol in data.query.results.quote) {
               if(data.query.results.quote.hasOwnProperty(Symbol)) {
                 var tempSymbols = data.query.results.quote[Symbol].symbol;
-                //var tempSymbols = data.query.results.quote[Symbol].Symbol;
                 var name = data.query.results.quote[Symbol].Name;
-                //var name = "temp";
                 var dividends = data.query.results.quote[Symbol].LastTradePriceOnly
-                //var dividends = data.query.results.quote[Symbol].Close;
+                //Sorts the data into appropriate spot in the stock array
                 for (var x = 0; x < $scope.stockArray.length; x++) {
                     if (tempSymbols === $scope.stockArray[x][0]) {
                         $scope.stockArray[x][2]+=parseFloat(dividends);
@@ -290,6 +293,7 @@ app.controller('MainController', ['$scope', function($scope) {
       //$("#result").text('Request failed: ' + err);
       });
   }
+  //Checks to figure out if the custom date is today or not. If its today, use current stock. Otherwise use the custom date function.
   var customDateToday = function() {
     if ($scope.date[2] == $scope.customDate[2] && $scope.date[0] == $scope.customDate[0] && $scope.date[1] == $scope.customDate[1]) {
       return true;
@@ -298,9 +302,9 @@ app.controller('MainController', ['$scope', function($scope) {
   }
     //URL building
   var buildURLS = function() {
-    //ccurrent
+    //currentURL building
     $scope.currentURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20IN%20(";
-    //Calculating the middle
+    //Calculating the middle part of the URLs which is the same
     var intermediate = "";
     for (var i = 0; i < $scope.stockArray.length-1; i++) {
       intermediate+=encodeURIComponent('"');
@@ -312,19 +316,20 @@ app.controller('MainController', ['$scope', function($scope) {
     //putting it together for current
     $scope.currentURL += intermediate + ")&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
     
-    //Historic
+    //Historic 
     $scope.historicURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20IN%20(" + intermediate + ")%20and%20startDate%20%3D%20%22"+$scope.sDate[2]+"-"+$scope.sDate[0]+"-"+$scope.sDate[1]+"%22%20and%20endDate%20%3D%20%22"+$scope.sDate[2]+"-"+$scope.sDate[0]+"-"+$scope.sDate[1]+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
 
+      //custom url building
     if ($scope.custom) {
     
       $scope.customURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.historicaldata%20where%20symbol%20in%20(" + intermediate + ")%20and%20startDate%20%3D%20%22"+$scope.customDate[2]+"-"+$scope.customDate[0]+"-"+$scope.customDate[1]+"%22%20and%20endDate%20%3D%20%22"+$scope.customDate[2]+"-"+$scope.customDate[0]+"-"+$scope.customDate[1]+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
     
     }
-    //dividens
+    //dividend url building
     $scope.dividendURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.dividendhistory%20where%20symbol%20IN%20("+intermediate+")%20and%20startDate%20%3D%20%22" + $scope.sDate[2] + "-"+ $scope.sDate[0] +"-"+$scope.sDate[1] +"%22%20and%20endDate%20%3D%20%22" + ($scope.date[2]) + "-"+ parseInt($scope.date[0])+1 + "-"+$scope.date[1]+"%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
       
       
-    //callingfunctions
+    //calling functions to start the data collection
     if ($scope.custom && !customDateToday()) {
       getCustomStock();
     }
@@ -378,6 +383,7 @@ app.controller('MainController', ['$scope', function($scope) {
   
   
   //Calculating holiday and weekend functions.
+  //This function is just a contains function to test if whether the array contains x.
   $scope.contains = function(arrayI, item) {
     for (var x = 0; x < arrayI.length; x++) {
       if (arrayI[x] === item) {
@@ -386,6 +392,8 @@ app.controller('MainController', ['$scope', function($scope) {
     }
     return false;
   }
+  //Rewinds the day, then checks to make sure the day is legal.
+  //Recursive with calculate day to also make sure the day isnt a holiday either.
   $scope.rewindDay = function() {
     if ($scope.tempDate[1] <= 0) {
       if ($scope.tempDate[0] == 1) {
@@ -478,6 +486,7 @@ app.controller('MainController', ['$scope', function($scope) {
   }
   
 
+  //swaps two days if one is before the other. 
   var swapCustomDays = function() {
     var temp = [$scope.sDate[2], $scope.sDate[0], $scope.sDate[1]];
       $scope.sDate[2] = $scope.customDate[2];
@@ -487,7 +496,7 @@ app.controller('MainController', ['$scope', function($scope) {
       $scope.customDate[0] = temp[1];
       $scope.customDate[1] = temp[2];
   }
-  
+  //Validates whether the day is in the future. 
   var futureDate = function(fYear, fMonth, fDay) {
     if ($scope.date[2] < fYear) {
       return true;
@@ -507,7 +516,7 @@ app.controller('MainController', ['$scope', function($scope) {
     
     return false; 
   }
-  
+  //Get the current day, make sure its legal. Get the past day (from year subtract) and make sure its legal. 
   var currentDay = function() {
     //Get today
     $scope.date[0] = d.getMonth()+1;
@@ -535,6 +544,8 @@ app.controller('MainController', ['$scope', function($scope) {
     $scope.sDate[1] = temp[2];
   }
   
+  
+  //year functions for 1, 3, 5.
   $scope.build1yrTable = function() {
     $scope.custom = false;
     $scope.yearSubtract = 1;
@@ -555,6 +566,7 @@ app.controller('MainController', ['$scope', function($scope) {
     currentDay();
     buildNames();
   }
+  //Custom Day range
   $scope.customTimeline = function() {
     $scope.custom = true;
     for (var i = 0; i < 34; i++) {
@@ -565,7 +577,7 @@ app.controller('MainController', ['$scope', function($scope) {
     $scope.customDate[2] = temp[0];
     $scope.customDate[0] = temp[1];
     $scope.customDate[1] = temp[2];
-    
+    //Make sure the day isnt in the future, if it is, make it today.
     if(futureDate($scope.sDate[2], $scope.sDate[0], $scope.sDate[1])) {
       alert("Cant use a future date for your past date, correcting date to a past date");
       //Get the past date

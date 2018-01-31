@@ -1,0 +1,343 @@
+{
+    "stocks": [{
+            "symbol": "WMT",
+            "name": "Wal-Mart Stores Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "CTL",
+            "name": "CenturyLink, Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "AXP",
+            "name": "American Express Company",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "CAT",
+            "name": "Caterpillar Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "CVX",
+            "name": "Chevron Corporation",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "PG",
+            "name": "The Procter & Gamble Company",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "UTX",
+            "name": "United Technologies Corporation",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "DD",
+            "name": "E. I. du Pont de Nemours and Company",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "IBM",
+            "name": "International Business Machines",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "XOM",
+            "name": "Exxon Mobil Corporation Company",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "INTC",
+            "name": "Intel Corporation",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "GS",
+            "name": "The Goldman Sachs Group",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "MMM",
+            "name": "3M Company",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "MRK",
+            "name": "Merck & Co. Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "JNJ",
+            "name": "Johnson & Johnson",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "KO",
+            "name": "The Coca-Cola Company",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "VZ",
+            "name": "Verizon Communications Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "T",
+            "name": "AT&T Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "JPM",
+            "name": "JPMorgan Chase & Co.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "CSCO",
+            "name": "Cisco Systems, Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "TRV",
+            "name": "The Travelers Companies, Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "CMCSA",
+            "name": "Comcast Corporation",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "PFE",
+            "name": "Pfizer Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "S",
+            "name": "Sprint Corporation",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "MSFT",
+            "name": "Microsoft Corporation",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "BA",
+            "name": "The Boeing Company",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "GE",
+            "name": "General Electric Company",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "UNH",
+            "name": "UnitedHealth Group Incorporated",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "V",
+            "name": "Visa Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "HD",
+            "name": "The Home Depot, Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "DIS",
+            "name": "The Walt Disney Company",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "MCD",
+            "name": "McDonald's Corp.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "NKE",
+            "name": "NIKE, Inc.",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        },
+        {
+            "symbol": "CHTR",
+            "name": "Charter Communications",
+            "historic": 0,
+            "current": 0,
+            "dividends": 0,
+            "yield": 0,
+            "appreciation": 0,
+            "tsv": 0
+        }
+    ]
+}

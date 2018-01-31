@@ -1,3 +1,17 @@
-Total Shareholder Value of the Dow 30 + a few various other companies.
+Version 3 of The Stock Total Shareholder Value App for the Dow 30:
 
-To view it in action: http://daniellchapman.github.io/shareholdervalue/index.html#
+### Configuration
+- **Platform:** node
+- **Framework**: express
+- **Template Engine**: pug
+- **CSS Preprocessor**: sass
+- **JavaScript Framework**: react
+- **Build Tool**: webpack
+- **Unit Testing**: none
+- **Database**: none
+- **Authentication**: none
+- **Deployment**: none
+
+Requires a .env file with the following: 
+
+API_KEY=

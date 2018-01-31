@@ -1,0 +1,72 @@
+html {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  overflow: hidden; }
+
+body {
+  margin-bottom: 44px;
+  background-color: #f1f1f1;
+  width: 100%;
+  position: relative;
+  height: 100%;
+  min-height: 100vh;
+  -webkit-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+  overflow: auto; }
+
+#app {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%; }
+
+.empty-div {
+  height: 100%;
+  display: inline-block;
+  min-height: 100vh;
+  width: 100%;
+  z-index: 1;
+  position: relative; }
+
+.loadingPageDiv {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: rgba(185, 174, 132, 0.5);
+  overflow-y: auto;
+  z-index: 5; }
+  .loadingPageDiv .loading-title {
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    font-family: 'Roboto', sans-serif; }
+  .loadingPageDiv .loading-table {
+    width: 400px;
+    margin: 0 auto;
+    position: relative;
+    text-align: center; }
+    .loadingPageDiv .loading-table table {
+      width: 200px;
+      margin: 0 auto;
+      font-size: 12px;
+      font-family: 'Open Sans', sans-serif; }
+    .loadingPageDiv .loading-table th {
+      text-align: center !important;
+      font-size: 14px;
+      font-family: 'Roboto', sans-serif; }
+    .loadingPageDiv .loading-table .symbol-times {
+      color: red;
+      position: relative;
+      top: -1px; }
+    .loadingPageDiv .loading-table .symbol-check {
+      color: green;
+      position: relative;
+      top: -1px; }
+
+/*# sourceMappingURL=style.css.map*/

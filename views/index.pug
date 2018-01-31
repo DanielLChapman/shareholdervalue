@@ -1,0 +1,21 @@
+doctype html
+html
+	head
+		title= `Stock Evaluator`
+		link(rel='stylesheet', href='/dist/style.css')
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+		link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans|Roboto')
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+
+	body
+		div#app
+		script(src="/dist/Stock.bundle.js")
+		script(src='/dist/fontawesome-all.min.js')
+		script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+		link(rel='stylesheet', href='https://unpkg.com/react-table@latest/react-table.css')
+		script.
+			$("nav a").on("click", function(){
+			   $("nav").find(".active").removeClass("active");
+			   $(this).parent().addClass("active");
+			});

@@ -8,13 +8,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { grabStocks, loadJSON, changeYear, resetState, sortState } from '../actions/index';
 
+const yearRegex = /[0-9]{4}\-[0-9]{2}\-[0-9]{2}/;
+
 class StockApp extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
 			isLoading: true,
 			currentlyLoading: -1,
-			loaded: false
+			loaded: false,
+			customYearLow: '2015-01-01',
+			customYearHigh: '2018-01-01'
 		};
 		this.handleInputs = this.handleInputs.bind(this);
 	}
@@ -52,13 +56,15 @@ class StockApp extends Component {
 	};
 
 	handleInputs (year) {
-		this.props.resetState();
-		this.props.changeYear(year);
-		this.setState({
-			isLoading: true,
-			currentlyLoading: 0,
-			loaded: false
-		});
+		if ([1,3,5].includes(year)) {
+			this.props.resetState();
+			this.props.changeYear(year);
+			this.setState({
+				isLoading: true,
+				currentlyLoading: 0,
+				loaded: false
+			});
+		}
 	}
 
 
@@ -97,7 +103,19 @@ class StockApp extends Component {
 					      <li onClick={ () => {
 					      	this.handleInputs(5)
 					      }}><a href="#">5 Year</a></li>
+					      <li onClick={ () => {
+					      	this.handleInputs('custom')
+					      }}><a href="#">Custom</a></li>
 					    </ul>
+					    <form className="navbar-form navbar-left">
+					    	<div className="form-group" style={{marginRight: '5px'}}>
+					    		<input type="text" className="form-control" placeholder="2015-01-01" value={this.state.customYearLow}/>
+					    	</div>
+					    	<div className="form-group" style={{marginRight: '5px'}}>
+					    		<input type="text" className="form-control" placeholder="2015-01-01" value={this.state.customYearHigh}/>
+					    	</div>
+					    	<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+					    </form>
 					  </div>
 					</nav>
 				</section>

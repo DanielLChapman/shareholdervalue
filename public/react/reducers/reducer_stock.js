@@ -13,6 +13,21 @@ export default function (state = [], action) {
 		case GRAB_STOCKS:
 			let tempData = [];
 			let totalDividends = 0;
+			//maybe up here set which value to use based on year test
+			let datetoUse = dateToCompareFor3Year;
+			switch(yearTest) {
+				case 1: 
+					datetoUse = dateToCompareFor1Year;
+					break;
+				case 3: 
+					datetoUse = dateToCompareFor3Year;
+					break;
+				case 5: 
+					datetoUse = dateToCompareFor5Year;
+					break;
+				default:
+					datetoUse = dateToCompareFor3Year;
+			}
 			if (action.payload.data) {
 				try {
 					const symbol = action.payload.data['Meta Data']['2. Symbol'];
@@ -20,7 +35,7 @@ export default function (state = [], action) {
 					const keys = Object.keys(data);
 					keys.map((x) => {
 						let tempDate = new Date(x);
-						tempDate.valueOf() > dateToCompareFor3Year ? tempData.push(data[x]) : null;
+						tempDate.valueOf() > datetoUse ? tempData.push(data[x]) : null;
 					});
 					tempData.map((x) => {
 						totalDividends += parseFloat(x['7. dividend amount']);

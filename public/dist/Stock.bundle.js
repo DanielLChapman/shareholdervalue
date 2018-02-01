@@ -23262,6 +23262,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var yearRegex = /[0-9]{4}\-[0-9]{2}\-[0-9]{2}/;
+
 var StockApp = function (_Component) {
 	_inherits(StockApp, _Component);
 
@@ -23273,7 +23275,9 @@ var StockApp = function (_Component) {
 		_this.state = {
 			isLoading: true,
 			currentlyLoading: -1,
-			loaded: false
+			loaded: false,
+			customYearLow: '2015-01-01',
+			customYearHigh: '2018-01-01'
 		};
 		_this.handleInputs = _this.handleInputs.bind(_this);
 		return _this;
@@ -23320,13 +23324,15 @@ var StockApp = function (_Component) {
 	}, {
 		key: 'handleInputs',
 		value: function handleInputs(year) {
-			this.props.resetState();
-			this.props.changeYear(year);
-			this.setState({
-				isLoading: true,
-				currentlyLoading: 0,
-				loaded: false
-			});
+			if ([1, 3, 5].includes(year)) {
+				this.props.resetState();
+				this.props.changeYear(year);
+				this.setState({
+					isLoading: true,
+					currentlyLoading: 0,
+					loaded: false
+				});
+			}
 		}
 	}, {
 		key: 'render',
@@ -23408,6 +23414,36 @@ var StockApp = function (_Component) {
 										{ href: '#' },
 										'5 Year'
 									)
+								),
+								_react2.default.createElement(
+									'li',
+									{ onClick: function onClick() {
+											_this3.handleInputs('custom');
+										} },
+									_react2.default.createElement(
+										'a',
+										{ href: '#' },
+										'Custom'
+									)
+								)
+							),
+							_react2.default.createElement(
+								'form',
+								{ className: 'navbar-form navbar-left' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'form-group', style: { marginRight: '5px' } },
+									_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: '2015-01-01', value: this.state.customYearLow })
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'form-group', style: { marginRight: '5px' } },
+									_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: '2015-01-01', value: this.state.customYearHigh })
+								),
+								_react2.default.createElement(
+									'button',
+									{ type: 'submit', 'class': 'btn btn-default' },
+									_react2.default.createElement('span', { 'class': 'glyphicon glyphicon-search' })
 								)
 							)
 						)
@@ -27123,6 +27159,21 @@ exports.default = function () {
 		case _index.GRAB_STOCKS:
 			var tempData = [];
 			var totalDividends = 0;
+			//maybe up here set which value to use based on year test
+			var datetoUse = dateToCompareFor3Year;
+			switch (_index.yearTest) {
+				case 1:
+					datetoUse = dateToCompareFor1Year;
+					break;
+				case 3:
+					datetoUse = dateToCompareFor3Year;
+					break;
+				case 5:
+					datetoUse = dateToCompareFor5Year;
+					break;
+				default:
+					datetoUse = dateToCompareFor3Year;
+			}
 			if (action.payload.data) {
 				try {
 					var symbol = action.payload.data['Meta Data']['2. Symbol'];
@@ -27130,7 +27181,7 @@ exports.default = function () {
 					var keys = Object.keys(data);
 					keys.map(function (x) {
 						var tempDate = new Date(x);
-						tempDate.valueOf() > dateToCompareFor3Year ? tempData.push(data[x]) : null;
+						tempDate.valueOf() > datetoUse ? tempData.push(data[x]) : null;
 					});
 					tempData.map(function (x) {
 						totalDividends += parseFloat(x['7. dividend amount']);

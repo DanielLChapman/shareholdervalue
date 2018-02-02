@@ -45,11 +45,17 @@ body {
     text-align: center;
     position: relative;
     font-family: 'Roboto', sans-serif; }
+    @media screen and (max-width: 500px) {
+      .loadingPageDiv .loading-title {
+        width: 100%; } }
   .loadingPageDiv .loading-table {
     width: 400px;
     margin: 0 auto;
     position: relative;
     text-align: center; }
+    @media screen and (max-width: 400px) {
+      .loadingPageDiv .loading-table {
+        width: 100%; } }
     .loadingPageDiv .loading-table table {
       width: 200px;
       margin: 0 auto;

@@ -49,12 +49,18 @@ body {
 		text-align: center;
 		position: relative;
 		font-family: 'Roboto', sans-serif;
+		@media screen and (max-width: 500px) {
+			width: 100%;
+		}
 	}
 	.loading-table {
 		width: 400px;
 		margin: 0 auto;
 		position: relative;
 		text-align: center;
+		@media screen and (max-width: 400px) {
+			width: 100%;
+		}
 		table {
 			width: 200px;
 			margin: 0 auto;

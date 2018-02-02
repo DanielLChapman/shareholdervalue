@@ -1,4 +1,4 @@
-import { GRAB_STOCKS, LOAD_JSON, yearTest, RESET_STATE, SORT_STATE } from '../actions/index';
+import { GRAB_STOCKS, LOAD_JSON, yearTest, SORT_STATE, customYearBool, customYearLow, customYearHigh } from '../actions/index';
 
 const dateToCompareFor1Year = new Date('2017-12-01').valueOf();
 const dateToCompareFor3Year = new Date('2015-12-01').valueOf();
@@ -8,7 +8,17 @@ export default function (state = [], action) {
 	switch (action.type) {
 		case LOAD_JSON:
 			state = action.payload;
-			return [...action.payload];
+			state.map((s) => {
+			
+				s.historic = 0;
+				s.current = 0;
+				s.dividends = 0;
+				s.yield = 0;
+				s.appreciation = 0;
+				s.tsv = 0;
+				
+			});
+			return [...state];
 			break;
 		case GRAB_STOCKS:
 			let tempData = [];
@@ -35,12 +45,14 @@ export default function (state = [], action) {
 					const keys = Object.keys(data);
 					keys.map((x) => {
 						let tempDate = new Date(x);
+						customYearBool ?
+						(tempDate.valueOf() >= new Date(customYearLow) && tempDate.valueOf() <= new Date(customYearHigh)) ? tempData.push(data[x]) : null:
 						tempDate.valueOf() > datetoUse ? tempData.push(data[x]) : null;
+				
 					});
 					tempData.map((x) => {
 						totalDividends += parseFloat(x['7. dividend amount']);
 					})
-
 					const historicPrice = parseFloat(tempData[tempData.length - 1]['5. adjusted close']);
 					const currentPrice = parseFloat(tempData[0]['5. adjusted close']);
 					const yieldValue = parseFloat((totalDividends/historicPrice)*100);
@@ -68,22 +80,10 @@ export default function (state = [], action) {
 			}
 			return state;
 			break;
-		case RESET_STATE: 
-			state.map((s) => {
-			
-				s.historic = 0;
-				s.current = 0;
-				s.dividends = 0;
-				s.yield = 0;
-				s.appreciation = 0;
-				s.tsv = 0;
-				
-			});
-			return [...state];
 		case SORT_STATE: 
 			state = state.sort(function sortByKey(a, b) {
-				return b.tsv < a.tsv ? -1
-					: b.tsv > a.tsv ? 1
+				return parseFloat(b.tsv) < parseFloat(a.tsv) ? -1
+					: parseFloat(b.tsv) > parseFloat(a.tsv) ? 1
 					: 0;
 			});
 			return [...state];

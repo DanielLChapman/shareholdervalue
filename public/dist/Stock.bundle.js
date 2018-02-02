@@ -839,12 +839,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.yearTest = exports.SORT_STATE = exports.RESET_STATE = exports.CHANGE_YEAR = exports.LOAD_JSON = exports.GRAB_STOCKS = undefined;
+exports.yearTest = exports.customYearHigh = exports.customYearLow = exports.customYearBool = exports.CUSTOM_YEAR = exports.SORT_STATE = exports.CHANGE_YEAR = exports.LOAD_JSON = exports.GRAB_STOCKS = undefined;
 exports.loadJSON = loadJSON;
 exports.grabStocks = grabStocks;
 exports.changeYear = changeYear;
-exports.resetState = resetState;
 exports.sortState = sortState;
+exports.customYear = customYear;
 
 var _axios = __webpack_require__(36);
 
@@ -859,8 +859,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var GRAB_STOCKS = exports.GRAB_STOCKS = 'GRAB_STOCKS';
 var LOAD_JSON = exports.LOAD_JSON = 'LOAD_JSON';
 var CHANGE_YEAR = exports.CHANGE_YEAR = 'CHANGE_YEAR';
-var RESET_STATE = exports.RESET_STATE = 'RESET_STATE';
 var SORT_STATE = exports.SORT_STATE = 'SORT_STATE';
+var CUSTOM_YEAR = exports.CUSTOM_YEAR = 'CUSTOM_YEAR';
+
+var customYearBool = exports.customYearBool = false;
+var customYearLow = exports.customYearLow = '2015-01-01';
+var customYearHigh = exports.customYearHigh = '2018-01-01';
 var yearTest = exports.yearTest = 3;
 
 function loadJSON() {
@@ -884,6 +888,7 @@ function grabStocks(stock, years) {
 
 function changeYear(option) {
 	exports.yearTest = yearTest = option;
+	exports.customYearBool = customYearBool = false;
 
 	return {
 		type: CHANGE_YEAR,
@@ -891,15 +896,19 @@ function changeYear(option) {
 	};
 }
 
-function resetState() {
-	return {
-		type: RESET_STATE
-	};
-}
-
 function sortState() {
 	return {
 		type: SORT_STATE
+	};
+}
+
+function customYear(low, high) {
+	exports.customYearBool = customYearBool = true;
+	exports.customYearLow = customYearLow = low;
+	exports.customYearHigh = customYearHigh = high;
+
+	return {
+		type: CUSTOM_YEAR
 	};
 }
 
@@ -23256,13 +23265,15 @@ var _index = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var yearRegex = /[0-9]{4}\-[0-9]{2}\-[0-9]{2}/;
+var yearRegex = /^([0-9]{4}\-[0-9]{2}\-[0-9]{2}){1}$/;
 
 var StockApp = function (_Component) {
 	_inherits(StockApp, _Component);
@@ -23277,9 +23288,15 @@ var StockApp = function (_Component) {
 			currentlyLoading: -1,
 			loaded: false,
 			customYearLow: '2015-01-01',
-			customYearHigh: '2018-01-01'
+			customYearLowStyling: { border: '1px solid green' },
+			customYearHigh: '2018-01-01',
+			customYearHighStyling: { border: '1px solid green' },
+			custom: false
 		};
 		_this.handleInputs = _this.handleInputs.bind(_this);
+		_this.onInputChange = _this.onInputChange.bind(_this);
+		_this.isLoaded = _this.isLoaded.bind(_this);
+		_this.onFormSubmit = _this.onFormSubmit.bind(_this);
 		return _this;
 	}
 
@@ -23325,27 +23342,79 @@ var StockApp = function (_Component) {
 		key: 'handleInputs',
 		value: function handleInputs(year) {
 			if ([1, 3, 5].includes(year)) {
-				this.props.resetState();
+				this.props.loadJSON();
 				this.props.changeYear(year);
+				this.setState({
+					isLoading: true,
+					currentlyLoading: 0,
+					loaded: false,
+					custom: false
+				});
+			} else {
+				this.setState({
+					custom: true
+				});
+			}
+		}
+	}, {
+		key: 'onInputChange',
+		value: function onInputChange(event) {
+			var _setState;
+
+			var target = event.target;
+			var name = target.name;
+			var cylS = this.state.customYearLowStyling;
+			var cyhS = this.state.customYearHighStyling;
+			switch (name) {
+				case 'customYearLow':
+					yearRegex.test(target.value) ? cylS = { border: '1px solid green' } : cylS = { border: '1px solid red' };
+					break;
+				case 'customYearHigh':
+					yearRegex.test(target.value) ? cyhS = { border: '1px solid green' } : cyhS = { border: '1px solid red' };
+					break;
+				default:
+					console.log('no idea what happened');
+			}
+			this.setState((_setState = {}, _defineProperty(_setState, name, target.value), _defineProperty(_setState, 'customYearLowStyling', cylS), _defineProperty(_setState, 'customYearHighStyling', cyhS), _setState));
+		}
+	}, {
+		key: 'onFormSubmit',
+		value: function onFormSubmit(event) {
+			event.preventDefault();
+			var tempLow = this.state.customYearLow;
+			var tempHigh = this.state.customYearHigh;
+			if (yearRegex.test(this.state.customYearLow) && yearRegex.test(this.state.customYearHigh)) {
+				tempLow < tempHigh ? this.props.customYear(tempLow, tempHigh) : this.props.customYear(tempHigh, tempLow);
+				this.props.loadJSON();
 				this.setState({
 					isLoading: true,
 					currentlyLoading: 0,
 					loaded: false
 				});
+			} else {
+				alert('Please Make Sure Both Inputs Are In The Form (2018-01-01)');
 			}
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			var _this3 = this;
+			var _this3 = this,
+			    _React$createElement,
+			    _React$createElement2;
 
 			var display = null,
 			    appDisplayStyle = { opacity: '1' },
 			    loadingPageStyle = { display: 'none' },
-			    loadingPage = null;
+			    loadingPage = null,
+			    customFormDisplay = loadingPageStyle,
+			    loadingMessage = '';
 			if (this.state.isLoading) {
 				loadingPageStyle = { display: 'block', opacity: '1' };
 				appDisplayStyle = { opacity: '.5' };
+			}
+			if (this.state.custom) {
+				customFormDisplay = { display: 'block' };
+				loadingMessage = 'This API uses monthly returns, \n\t\t\tso if you use the date 2015-01-16, the api will return 2015-01-31. \n\t\t\tSorry for the inconvience but until there is a better API with dividend returns,\n\t\t\tthis is the best we can do.';
 			}
 			display = _react2.default.createElement(
 				'div',
@@ -23355,8 +23424,10 @@ var StockApp = function (_Component) {
 			loadingPage = _react2.default.createElement(
 				'div',
 				{ className: 'loadingPageDiv', style: loadingPageStyle },
-				_react2.default.createElement(_loadingPage2.default, null)
+				_react2.default.createElement(_loadingPage2.default, { message: loadingMessage })
 			);
+
+			//hide form unless custom is hit
 			return _react2.default.createElement(
 				'div',
 				{ className: 'empty-div' },
@@ -23374,76 +23445,92 @@ var StockApp = function (_Component) {
 								'div',
 								{ className: 'navbar-header' },
 								_react2.default.createElement(
+									'button',
+									{ type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#navbar', 'aria-expanded': 'false', 'aria-controls': 'navbar' },
+									_react2.default.createElement(
+										'span',
+										{ className: 'sr-only' },
+										'Toggle navigation'
+									),
+									_react2.default.createElement('span', { className: 'icon-bar' }),
+									_react2.default.createElement('span', { className: 'icon-bar' }),
+									_react2.default.createElement('span', { className: 'icon-bar' })
+								),
+								_react2.default.createElement(
 									'a',
 									{ className: 'navbar-brand', href: '/' },
 									'Stock Evaluator'
 								)
 							),
 							_react2.default.createElement(
-								'ul',
-								{ className: 'nav navbar-nav' },
+								'div',
+								{ id: 'navbar', className: 'navbar-collapse collapse', 'aria-expanded': 'false', style: { height: "1px" } },
 								_react2.default.createElement(
-									'li',
-									{ onClick: function onClick() {
-											_this3.handleInputs(1);
-										} },
+									'ul',
+									{ className: 'nav navbar-nav' },
 									_react2.default.createElement(
-										'a',
-										{ href: '#' },
-										'1 Year'
+										'li',
+										{ onClick: function onClick() {
+												_this3.handleInputs(1);
+											} },
+										_react2.default.createElement(
+											'a',
+											{ href: '#' },
+											'1 Year'
+										)
+									),
+									_react2.default.createElement(
+										'li',
+										{ className: 'active', onClick: function onClick() {
+												_this3.handleInputs(3);
+											} },
+										_react2.default.createElement(
+											'a',
+											{ href: '#' },
+											'3 Year'
+										)
+									),
+									_react2.default.createElement(
+										'li',
+										{ onClick: function onClick() {
+												_this3.handleInputs(5);
+											} },
+										_react2.default.createElement(
+											'a',
+											{ href: '#' },
+											'5 Year'
+										)
+									),
+									_react2.default.createElement(
+										'li',
+										{ onClick: function onClick() {
+												_this3.handleInputs('custom');
+											} },
+										_react2.default.createElement(
+											'a',
+											{ href: '#' },
+											'Custom'
+										)
 									)
 								),
 								_react2.default.createElement(
-									'li',
-									{ className: 'active', onClick: function onClick() {
-											_this3.handleInputs(3);
-										} },
+									'form',
+									{ onSubmit: this.onFormSubmit, className: 'navbar-form navbar-left', style: customFormDisplay },
 									_react2.default.createElement(
-										'a',
-										{ href: '#' },
-										'3 Year'
-									)
-								),
-								_react2.default.createElement(
-									'li',
-									{ onClick: function onClick() {
-											_this3.handleInputs(5);
-										} },
+										'div',
+										{ className: 'form-group', style: { marginRight: '5px' } },
+										_react2.default.createElement('input', (_React$createElement = { type: 'text', name: 'customYearLow', onChange: this.onInputChange, className: 'form-control' }, _defineProperty(_React$createElement, 'name', 'customYearLow'), _defineProperty(_React$createElement, 'value', this.state.customYearLow), _defineProperty(_React$createElement, 'style', this.state.customYearLowStyling), _React$createElement))
+									),
 									_react2.default.createElement(
-										'a',
-										{ href: '#' },
-										'5 Year'
-									)
-								),
-								_react2.default.createElement(
-									'li',
-									{ onClick: function onClick() {
-											_this3.handleInputs('custom');
-										} },
+										'div',
+										{ className: 'form-group', style: { marginRight: '5px' } },
+										_react2.default.createElement('input', (_React$createElement2 = { type: 'text', name: 'customYearHigh', onChange: this.onInputChange, className: 'form-control' }, _defineProperty(_React$createElement2, 'name', 'customYearHigh'), _defineProperty(_React$createElement2, 'value', this.state.customYearHigh), _defineProperty(_React$createElement2, 'style', this.state.customYearHighStyling), _React$createElement2))
+									),
 									_react2.default.createElement(
-										'a',
-										{ href: '#' },
-										'Custom'
+										'button',
+										{ type: 'submit', className: 'btn btn-default' },
+										_react2.default.createElement('span', { className: 'glyphicon glyphicon-search' })
 									)
-								)
-							),
-							_react2.default.createElement(
-								'form',
-								{ className: 'navbar-form navbar-left' },
-								_react2.default.createElement(
-									'div',
-									{ className: 'form-group', style: { marginRight: '5px' } },
-									_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: '2015-01-01', value: this.state.customYearLow })
-								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'form-group', style: { marginRight: '5px' } },
-									_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: '2015-01-01', value: this.state.customYearHigh })
-								),
-								_react2.default.createElement(
-									'button',
-									{ type: 'submit', 'class': 'btn btn-default' },
-									_react2.default.createElement('span', { 'class': 'glyphicon glyphicon-search' })
 								)
 							)
 						)
@@ -23460,7 +23547,7 @@ var StockApp = function (_Component) {
 ;
 
 function mapDispatchToProps(dispatch) {
-	return (0, _redux.bindActionCreators)({ loadJSON: _index.loadJSON, grabStocks: _index.grabStocks, changeYear: _index.changeYear, resetState: _index.resetState, sortState: _index.sortState }, dispatch);
+	return (0, _redux.bindActionCreators)({ loadJSON: _index.loadJSON, grabStocks: _index.grabStocks, changeYear: _index.changeYear, sortState: _index.sortState, customYear: _index.customYear }, dispatch);
 }
 
 function mapStateToProps(_ref) {
@@ -24478,6 +24565,11 @@ var LoadingPage = function (_Component) {
 						'Please Wait. ',
 						_react2.default.createElement('br', null),
 						'We are loading the information now!'
+					),
+					_react2.default.createElement(
+						'h4',
+						null,
+						this.props.message
 					)
 				),
 				_react2.default.createElement(
@@ -27154,7 +27246,16 @@ exports.default = function () {
 	switch (action.type) {
 		case _index.LOAD_JSON:
 			state = action.payload;
-			return [].concat(_toConsumableArray(action.payload));
+			state.map(function (s) {
+
+				s.historic = 0;
+				s.current = 0;
+				s.dividends = 0;
+				s.yield = 0;
+				s.appreciation = 0;
+				s.tsv = 0;
+			});
+			return [].concat(_toConsumableArray(state));
 			break;
 		case _index.GRAB_STOCKS:
 			var tempData = [];
@@ -27181,12 +27282,11 @@ exports.default = function () {
 					var keys = Object.keys(data);
 					keys.map(function (x) {
 						var tempDate = new Date(x);
-						tempDate.valueOf() > datetoUse ? tempData.push(data[x]) : null;
+						_index.customYearBool ? tempDate.valueOf() >= new Date(_index.customYearLow) && tempDate.valueOf() <= new Date(_index.customYearHigh) ? tempData.push(data[x]) : null : tempDate.valueOf() > datetoUse ? tempData.push(data[x]) : null;
 					});
 					tempData.map(function (x) {
 						totalDividends += parseFloat(x['7. dividend amount']);
 					});
-
 					var historicPrice = parseFloat(tempData[tempData.length - 1]['5. adjusted close']);
 					var currentPrice = parseFloat(tempData[0]['5. adjusted close']);
 					var yieldValue = parseFloat(totalDividends / historicPrice * 100);
@@ -27211,20 +27311,9 @@ exports.default = function () {
 			}
 			return state;
 			break;
-		case _index.RESET_STATE:
-			state.map(function (s) {
-
-				s.historic = 0;
-				s.current = 0;
-				s.dividends = 0;
-				s.yield = 0;
-				s.appreciation = 0;
-				s.tsv = 0;
-			});
-			return [].concat(_toConsumableArray(state));
 		case _index.SORT_STATE:
 			state = state.sort(function sortByKey(a, b) {
-				return b.tsv < a.tsv ? -1 : b.tsv > a.tsv ? 1 : 0;
+				return parseFloat(b.tsv) < parseFloat(a.tsv) ? -1 : parseFloat(b.tsv) > parseFloat(a.tsv) ? 1 : 0;
 			});
 			return [].concat(_toConsumableArray(state));
 		default:
@@ -27258,6 +27347,9 @@ exports.default = function () {
 	switch (action.type) {
 		case _index.CHANGE_YEAR:
 			state = action.payload;
+			return state;
+			break;
+		case _index.CUSTOM_YEAR:
 			return state;
 			break;
 		default:

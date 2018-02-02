@@ -52,6 +52,7 @@ class LoadingPage extends Component {
 			<Fragment>
 				<section className="loading-title">
 					<h2>Please Wait. <br />We are loading the information now!</h2>
+					<h4>{this.props.message}</h4>
 				</section>
 				<section className="loading-table">
 					{display}

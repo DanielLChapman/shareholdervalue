@@ -21,6 +21,7 @@ class StockApp extends Component {
 			customYearLowStyling: {border: '1px solid green'},
 			customYearHigh: '2018-01-01',
 			customYearHighStyling: {border: '1px solid green'},
+			displaySymbol: true,
 			custom: false
 		};
 		this.handleInputs = this.handleInputs.bind(this);
@@ -71,10 +72,14 @@ class StockApp extends Component {
 				loaded: false,
 				custom: false
 			});
-		} else {
+		} else if (year === "custom"){
 			this.setState({
 				custom: true
 			})
+		} else {
+			this.setState({
+				displaySymbol: !this.state.displaySymbol
+			});
 		}
 	}
 
@@ -143,7 +148,7 @@ class StockApp extends Component {
 			this is the best we can do.`
 		}
 		display = <div className="empty-div display-page-app" style={appDisplayStyle}>
-					<DisplayPage />
+					<DisplayPage displaySymbol={this.state.displaySymbol}/>
 				  </div>
 		loadingPage = <div className="loadingPageDiv" style={loadingPageStyle}>
 						<LoadingPage message={loadingMessage}/>
@@ -179,6 +184,11 @@ class StockApp extends Component {
 						      <li onClick={ () => {
 						      	this.handleInputs('custom')
 						      }}><a href="#">Custom</a></li>
+						      <li onClick={ () => {
+						      	this.handleInputs('switchName')
+						      }}><a href="#">Switch Names</a></li>
+
+						      
 						    </ul>
 						    <form onSubmit={this.onFormSubmit} className="navbar-form navbar-left" style={customFormDisplay}>
 						    	<div className="form-group" style={{marginRight: '5px'}}>

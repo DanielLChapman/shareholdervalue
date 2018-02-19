@@ -8,9 +8,6 @@ import { bindActionCreators } from 'redux';
 class DisplayPage extends Component {
 	constructor (props) {
 		super(props);
-		this.state = {
-			displaySymbol: true
-		};
 	}
 
 	render () {
@@ -27,7 +24,7 @@ class DisplayPage extends Component {
 				id: 'Symbols',
 				Header: 'Indentity',
 				accessor: d => {
-					if (this.state.displaySymbol) {
+					if (this.props.displaySymbol) {
 						return d.symbol;
 					} else {
 						return d.name

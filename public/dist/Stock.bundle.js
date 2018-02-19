@@ -23291,6 +23291,7 @@ var StockApp = function (_Component) {
 			customYearLowStyling: { border: '1px solid green' },
 			customYearHigh: '2018-01-01',
 			customYearHighStyling: { border: '1px solid green' },
+			displaySymbol: true,
 			custom: false
 		};
 		_this.handleInputs = _this.handleInputs.bind(_this);
@@ -23350,9 +23351,13 @@ var StockApp = function (_Component) {
 					loaded: false,
 					custom: false
 				});
-			} else {
+			} else if (year === "custom") {
 				this.setState({
 					custom: true
+				});
+			} else {
+				this.setState({
+					displaySymbol: !this.state.displaySymbol
 				});
 			}
 		}
@@ -23419,7 +23424,7 @@ var StockApp = function (_Component) {
 			display = _react2.default.createElement(
 				'div',
 				{ className: 'empty-div display-page-app', style: appDisplayStyle },
-				_react2.default.createElement(_displayData2.default, null)
+				_react2.default.createElement(_displayData2.default, { displaySymbol: this.state.displaySymbol })
 			);
 			loadingPage = _react2.default.createElement(
 				'div',
@@ -23510,6 +23515,17 @@ var StockApp = function (_Component) {
 											'a',
 											{ href: '#' },
 											'Custom'
+										)
+									),
+									_react2.default.createElement(
+										'li',
+										{ onClick: function onClick() {
+												_this3.handleInputs('switchName');
+											} },
+										_react2.default.createElement(
+											'a',
+											{ href: '#' },
+											'Switch Names'
 										)
 									)
 								),
@@ -24641,12 +24657,7 @@ var DisplayPage = function (_Component) {
 	function DisplayPage(props) {
 		_classCallCheck(this, DisplayPage);
 
-		var _this = _possibleConstructorReturn(this, (DisplayPage.__proto__ || Object.getPrototypeOf(DisplayPage)).call(this, props));
-
-		_this.state = {
-			displaySymbol: true
-		};
-		return _this;
+		return _possibleConstructorReturn(this, (DisplayPage.__proto__ || Object.getPrototypeOf(DisplayPage)).call(this, props));
 	}
 
 	_createClass(DisplayPage, [{
@@ -24666,7 +24677,7 @@ var DisplayPage = function (_Component) {
 				id: 'Symbols',
 				Header: 'Indentity',
 				accessor: function accessor(d) {
-					if (_this2.state.displaySymbol) {
+					if (_this2.props.displaySymbol) {
 						return d.symbol;
 					} else {
 						return d.name;
